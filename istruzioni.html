@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Istruzioni per gli ospiti – Nido nel Cuore Walser</title>
+  <meta name="description" content="Video di benvenuto e istruzioni per l’uso dell’appartamento Nido nel Cuore Walser a Gressoney-Saint-Jean.">
+  <link rel="icon" type="image/png" href="assets/img/Prima Foto.PNG">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+</head>
+
+<body class="bg-gray-50">
+
+  <custom-navbar></custom-navbar>
+
+  <section class="py-20 px-4 bg-white text-center">
+    <div class="max-w-5xl mx-auto">
+      <h1 class="text-4xl font-bold text-amber-700 mb-6">🎥 Benvenuto al Nido nel Cuore Walser</h1>
+      <p class="text-gray-600 mb-10">
+        In questa pagina riservata agli ospiti troverai i video introduttivi e le istruzioni per l’uso degli elettrodomestici e dei servizi dell’appartamento.
+      </p>
+
+      <!-- Video di Benvenuto -->
+      <div class="mb-12">
+        <h2 class="text-2xl font-semibold text-amber-700 mb-4">🌟 Video di Benvenuto</h2>
+        <div class="rounded-xl overflow-hidden shadow-lg aspect-w-16 aspect-h-9">
+          <iframe class="w-full h-96"
+            src="https://www.youtube.com/embed/ID_DEL_VIDEO?rel=0"
+            title="Video di benvenuto - Nido nel Cuore Walser"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+        </div>
+      </div>
+
+      <!-- Istruzioni per Elettrodomestici -->
+      <div class="text-left space-y-8">
+        <h2 class="text-2xl font-semibold text-amber-700 mb-4 text-center">📘 Istruzioni per l’uso</h2>
+
+        <ul class="list-disc list-inside text-gray-700 leading-relaxed">
+          <li><strong>Lavastoviglie:</strong> usa il programma ECO, carica i piatti inclinati e non sovrapporre i bicchieri.</li>
+          <li><strong>Lavatrice:</strong> programma “Cotone 40°” per uso quotidiano, dosare detersivo nel cassetto sinistro.</li>
+          <li><strong>Nespresso:</strong> inserire capsula, chiudere il braccetto e premere il tasto piccolo per espresso.</li>
+          <li><strong>Bollitore Smeg:</strong> riempire fino a metà, accendere con leva frontale, spegnimento automatico.</li>
+          <li><strong>Microonde:</strong> programma rapido 30 secondi o combinato grill per riscaldare i pasti.</li>
+          <li><strong>Wi-Fi:</strong> rete <em>NidoWalser</em> — password disponibile in appartamento.</li>
+        </ul>
+
+        <p class="text-gray-600 text-sm italic">
+          📎 Video tutorial aggiuntivi (non elencati su YouTube) saranno disponibili tramite QR code accanto a ciascun elettrodomestico.
+        </p>
+      </div>
+
+      <div class="mt-16">
+        <a href="index.html" class="bg-amber-600 text-white py-3 px-6 rounded-lg hover:bg-amber-700 transition">⬅ Torna alla Home</a>
+      </div>
+    </div>
+  </section>
+
+  <custom-footer></custom-footer>
+  <script src="components/navbar.js"></script>
+  <script src="components/footer.js"></script>
+  <script>feather.replace();</script>
+</body>
+</html>
