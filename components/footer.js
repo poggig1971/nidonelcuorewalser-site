@@ -72,8 +72,8 @@ class CustomFooter extends HTMLElement {
       <footer>
         <div class="footer-container">
           <div class="footer-section">
-            <h3>Alpine Nest Retreat</h3>
-            <p>Il tuo accogliente appartamento in stile Walser nel cuore di Gressoney-Saint-Jean, Valle d'Aosta.</p>
+            <h3>Nido nel Cuore Walser</h3>
+            <p>Il tuo accogliente appartamento nel cuore di Gressoney-Saint-Jean, Valle d'Aosta.</p>
 <div class="social-links">
               <a href="#" aria-label="Facebook"><i data-feather="facebook"></i></a>
               <a href="#" aria-label="Instagram"><i data-feather="instagram"></i></a>
