@@ -71,7 +71,8 @@ class CustomFooter extends HTMLElement {
       </style>
       <footer>
         <div class="social-links">
-        <a href="https://www.facebook.com/profile.php?id=61557473374498"
+
+        <a href="https://www.facebook.com/profile.php?id=61557473374498" 
            aria-label="Facebook"
            target="_blank"
            rel="noopener noreferrer">
