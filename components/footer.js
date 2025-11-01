@@ -71,11 +71,20 @@ class CustomFooter extends HTMLElement {
       </style>
       <footer>
         <div class="social-links">
-          <a href="https://www.facebook.com/nidonelcuorewalser" aria-label="Facebook" target="_blank" rel="noopener">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" viewBox="0 0 24 24">
-              <path d="M22.675 0h-21.35A1.33 1.33 0 000 1.325v21.351A1.33 1.33 0 001.325 24h11.495v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.894-4.788 4.66-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.794.716-1.794 1.764v2.314h3.587l-.467 3.622h-3.12V24h6.117A1.33 1.33 0 0024 22.675V1.325A1.33 1.33 0 0022.675 0z"/>
-            </svg>
-          </a>
+        <a href="https://www.facebook.com/profile.php?id=61557473374498"
+           aria-label="Facebook"
+           target="_blank"
+           rel="noopener noreferrer">
+          <svg xmlns="http://www.w3.org/2000/svg" 
+               width="20" height="20" 
+               fill="white" 
+               viewBox="0 0 24 24">
+            <path d="M22.675 0h-21.35A1.33 1.33 0 000 1.325v21.351A1.33 1.33 0 001.325 24h11.495v-9.294H9.692v-3.622h3.128V8.413
+             c0-3.1 1.894-4.788 4.66-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001
+             c-1.504 0-1.794.716-1.794 1.764v2.314h3.587l-.467 3.622h-3.12V24h6.117
+             A1.33 1.33 0 0024 22.675V1.325A1.33 1.33 0 0022.675 0z"/>
+          </svg>
+        </a>
 
           <a href="https://www.instagram.com/nidonelcuorewalser" aria-label="Instagram" target="_blank" rel="noopener">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" viewBox="0 0 24 24">
