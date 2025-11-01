@@ -85,7 +85,7 @@ class CustomFooter extends HTMLElement {
              </svg>
           </a>
 
-          <a href="https://www.tiktok.com/@nidonelcuorewalser" aria-label="TikTok" target="_blank" rel="noopener">
+          <a href="https://www.tiktok.com/@nido.nel.cuore.walser" aria-label="TikTok" target="_blank" rel="noopener">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" viewBox="0 0 24 24">
               <path d="M12.75 2c0 .41.034.822.102 1.23 1.71-.02 3.37.67 4.57 1.93v2.05a6.067 6.067 0 01-4.67-2.34v7.54a3.53 3.53 0 11-2.46-3.36V6.05a6.044 6.044 0 00-1.08-.1A6.75 6.75 0 108.72 20.84 6.718 6.718 0 0012.75 21c3.72 0 6.75-3.03 6.75-6.75V8.5a8.667 8.667 0 01-6.75-6.5z"/>
             </svg>
