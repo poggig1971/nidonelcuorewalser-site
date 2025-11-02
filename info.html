@@ -32,10 +32,11 @@
        ⬅️ Torna al sito principale
     </a>
 
+
     <a href="https://forms.gle/ZADx98vSS8HdYDsFA"
-       target="_blank"
-       class="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg shadow transition duration-300 text-center">
-       📝 Compila il modulo per la registrazione ospiti
+     target="_blank"
+     class="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg shadow transition duration-300 text-center animate-blink">
+     📝 <span class="blink-text">Compila il modulo per la registrazione ospiti</span>
     </a>
   </div>
 
@@ -239,6 +240,19 @@
     50% { transform: scale(1.05); opacity: 0.9; box-shadow: 0 0 20px rgba(255, 191, 0, 0.6); }
   }
   .animate-pulse-slow { animation: pulse-slow 3s ease-in-out infinite; }
+
+   
+/* Effetto lampeggiante elegante */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.blink-text {
+  animation: blink 1.8s ease-in-out infinite;
+}
+</style>
+
   </style>
 
 </body>
