@@ -156,7 +156,6 @@ class CustomNavbar extends HTMLElement {
     // Mobile menu toggle
     const menuButton = this.shadowRoot.getElementById('menuButton');
     const navLinks = this.shadowRoot.getElementById('navLinks');
-    
     menuButton.addEventListener('click', () => {
       navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
     });
@@ -171,8 +170,15 @@ class CustomNavbar extends HTMLElement {
       }
     });
 
-    // Initialize feather icons
-    feather.replace();
+    // ✅ Feather icons — compatibile desktop + iPhone
+    if (window.feather) {
+      const icons = this.shadowRoot.querySelectorAll('i[data-feather]');
+      icons.forEach(icon => {
+        const name = icon.getAttribute('data-feather');
+        const svg = feather.icons[name]?.toSvg({ class: icon.className });
+        if (svg) icon.outerHTML = svg;
+      });
+    }
   }
 }
 
