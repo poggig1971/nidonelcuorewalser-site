@@ -76,6 +76,21 @@ class CustomNavbar extends HTMLElement {
           background: #B45309;
           transform: translateY(-2px);
         }
+        .social-icons {
+          display: flex;
+          gap: 0.75rem;
+          align-items: center;
+          margin-left: 1rem;
+        }
+        .social-icons a {
+          color: white;
+          transition: color 0.2s, transform 0.2s;
+          font-size: 1.2rem;
+        }
+        .social-icons a:hover {
+          color: #D97706;
+          transform: scale(1.15);
+        }
         .mobile-menu-button {
           display: none;
           background: none;
@@ -102,23 +117,39 @@ class CustomNavbar extends HTMLElement {
             flex-direction: column;
             gap: 1rem;
           }
+          .social-icons {
+            display: none;
+          }
         }
       </style>
       <nav id="navbar">
         <div class="logo">
           <i data-feather="home" class="logo-icon"></i>
-          <span>Alpine Nest Retreat</span>
+          <span>Nido nel Cuore Walser</span>
         </div>
         <button class="mobile-menu-button" id="menuButton">
           <i data-feather="menu"></i>
         </button>
         <ul id="navLinks">
           <li><a href="/">Home</a></li>
-          <li><a href="#features">Features</a></li>
-          <li><a href="#gallery">Gallery</a></li>
-          <li><a href="#location">Location</a></li>
-          <li><a href="#booking" class="book-now">Book Now</a></li>
+          <li><a href="#descrizione">Descrizione</a></li>
+          <li><a href="#mappa">Mappa</a></li>
+          <li><a href="#booking" class="book-now">Prenota Ora</a></li>
         </ul>
+        <div class="social-icons">
+          <a href="https://www.instagram.com/nidonelcuorewalser/" target="_blank" aria-label="Instagram">
+            <i data-feather="instagram"></i>
+          </a>
+          <a href="https://www.tiktok.com/@nido.nel.cuore.walser" target="_blank" aria-label="TikTok">
+            <i data-feather="music"></i>
+          </a>
+          <a href="https://www.facebook.com/nidonelcuorewalser/" target="_blank" aria-label="Facebook">
+            <i data-feather="facebook"></i>
+          </a>
+          <a href="https://www.youtube.com/@nidonelcuorewalser" target="_blank" aria-label="YouTube">
+            <i data-feather="youtube"></i>
+          </a>
+        </div>
       </nav>
     `;
 
@@ -144,4 +175,5 @@ class CustomNavbar extends HTMLElement {
     feather.replace();
   }
 }
+
 customElements.define('custom-navbar', CustomNavbar);
