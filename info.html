@@ -4,13 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Istruzioni per gli ospiti – Nido nel Cuore Walser</title>
-  <meta name="description" content="Pagina riservata agli ospiti del Nido nel Cuore Walser con video di benvenuto e istruzioni d’uso complete.">
+  <meta name="description" content="Pagina riservata agli ospiti del Nido nel Cuore Walser con video di benvenuto, manuali e informazioni utili per il soggiorno a Gressoney-Saint-Jean.">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.PNG">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" href="favicon.png">
   <link rel="shortcut icon" href="favicon.ico">
 
+  <!-- CSS e librerie -->
   <link rel="stylesheet" href="style.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
@@ -18,13 +18,15 @@
 
 <body class="bg-gray-50 text-gray-800">
 
+  <!-- Navbar -->
+  <custom-navbar></custom-navbar>
+
   <!-- Prima immagine a tutta larghezza -->
-  <div class="bg-white">
+  <div class="bg-white mt-20">
     <img src="assets/img/Prima Foto.PNG"
          alt="Vista esterna Nido nel Cuore Walser"
          class="w-full max-h-[500px] object-cover shadow-md">
   </div>
-
 
   <!-- Link posizione appartamento -->
   <p class="mt-6 text-center text-amber-700 font-semibold">
@@ -40,37 +42,31 @@
        ⬅️ Torna al sito principale
     </a>
 
-
     <a href="https://forms.gle/ZADx98vSS8HdYDsFA"
-     target="_blank"
-     class="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg shadow transition duration-300 text-center animate-blink">
-     📝 <span class="blink-text">Compila il modulo per la registrazione ospiti</span>
-    </a>
-  </div>
-
-  <!-- Sezione Mini Contratto -->
-<section id="contratto" class="py-12 px-6 bg-white border-t border-amber-200 text-center">
-  <div class="max-w-4xl mx-auto">
-    <h2 class="text-3xl font-bold text-amber-700 mb-4">🧾 Mini Contratto di Locazione Breve Turistica</h2>
-
-    <p class="text-gray-700 mb-6 leading-relaxed">
-      E' possibile consultare il <strong>Mini Contratto di Locazione Breve Turistica</strong> utilizzato per il soggiorno presso
-      <em>Nido nel Cuore Walser</em>.  l documento riepiloga i termini principali del soggiorno, le regole di utilizzo e le modalità di check-in e check-out.
-    </p>
-
-    <a href="assets/img/MiniContratto-NidoWalser.pdf" 
        target="_blank"
-       class="bg-amber-600 hover:bg-amber-700 text-white font-semibold py-3 px-6 rounded-lg shadow transition duration-300 inline-block">
-       📄 Visualizza il Contratto (PDF)
+       class="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg shadow transition duration-300 text-center animate-blink">
+       📝 <span class="blink-text">Compila il modulo per la registrazione ospiti</span>
     </a>
-
-    <p class="text-gray-600 text-sm mt-4">
-      Il documento ha valore informativo e viene firmato prima della consegna delle chiavi.
-    </p>
   </div>
-</section>
 
-  
+  <!-- Mini Contratto -->
+  <section id="contratto" class="py-12 px-6 bg-white border-t border-amber-200 text-center">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-3xl font-bold text-amber-700 mb-4">🧾 Mini Contratto di Locazione Breve Turistica</h2>
+      <p class="text-gray-700 mb-6 leading-relaxed">
+        È possibile consultare il <strong>Mini Contratto di Locazione Breve Turistica</strong> utilizzato per il soggiorno presso
+        <em>Nido nel Cuore Walser</em>. Il documento riepiloga i termini principali del soggiorno, le regole di utilizzo e le modalità di check-in e check-out.
+      </p>
+      <a href="assets/img/MiniContratto-NidoWalser.pdf" 
+         target="_blank"
+         class="bg-amber-600 hover:bg-amber-700 text-white font-semibold py-3 px-6 rounded-lg shadow transition duration-300 inline-block">
+         📄 Visualizza il Contratto (PDF)
+      </a>
+      <p class="text-gray-600 text-sm mt-4">
+        Il documento ha valore informativo e viene firmato prima della consegna delle chiavi.
+      </p>
+    </div>
+  </section>
 
   <!-- Intro -->
   <section class="py-10 px-6 bg-amber-50 border-b border-amber-200">
@@ -82,22 +78,21 @@
       </p>
 
       <p class="text-gray-700 max-w-2xl mx-auto mt-4 leading-relaxed">
-        Per garantire il massimo comfort, ti prego di comunicarmi l’<strong>🕛 orario previsto di arrivo</strong>.  
-        In questo modo potrò <strong>accendere in anticipo l’acqua calda e il riscaldamento</strong>, assicurando una temperatura piacevole al tuo ingresso.
+        Ti preghiamo di comunicare l’<strong>🕛 orario previsto di arrivo</strong> per poter accendere in anticipo acqua calda e riscaldamento, garantendo una temperatura piacevole al tuo ingresso.
       </p>
 
       <div class="text-left max-w-2xl mx-auto mt-6 bg-white p-6 rounded-xl shadow-sm">
         <p class="text-amber-700 font-semibold mb-2">🔓 Codice di accesso</p>
         <p class="text-gray-700 mb-4">
           Dopo aver digitato il codice ricevuto, premi il tasto con il <em>lucchetto</em> per aprire.  
-          Due copie delle chiavi 🔑 di casa e la chiave dello Sky Box sono appese accanto al microonde.
+          Due copie delle chiavi 🔑 e la chiave dello Sky Box sono appese accanto al microonde.
         </p>
 
         <ul class="list-disc list-inside text-gray-700 space-y-1">
           <li>Scollega la spina della videocamera di sicurezza.</li>
           <li>Fai scorrere un po’ l’acqua prima di berla.</li>
-          <li>Non fumare e non accendere il camino all’interno dell’appartamento.</li>
-          <li>Accendi la cappa quando cucini (in caso contrario si attiva l’allarme antincendio).</li>
+          <li>Non fumare e non accendere il camino.</li>
+          <li>Accendi la cappa quando cucini per evitare l’attivazione dell’allarme.</li>
         </ul>
 
         <p class="text-gray-700 mt-4">
@@ -107,14 +102,13 @@
       </div>
 
       <p class="text-gray-700 max-w-2xl mx-auto mt-6 leading-relaxed">
-        📞 Al tuo arrivo a <strong>Gressoney-Saint-Jean</strong> sono felice di assisterti in <strong>videochiamata</strong>  
-        al numero <a href="tel:+393358321878" class="text-amber-700 hover:underline font-semibold">+39 335 8321878</a>,  
-        così potrò mostrarti il parcheggio e tutto ciò di cui hai bisogno.
+        📞 Al tuo arrivo a <strong>Gressoney-Saint-Jean</strong> sono disponibile in <strong>videochiamata</strong>  
+        al numero <a href="tel:+393358321878" class="text-amber-700 hover:underline font-semibold">+39 335 8321878</a>.
       </p>
     </div>
   </section>
 
-    <!-- Indice della pagina -->
+  <!-- Indice -->
   <section class="py-6 px-6 bg-white border-t border-b border-amber-200">
     <div class="max-w-4xl mx-auto text-center">
       <h2 class="text-2xl font-bold text-amber-700 mb-4">📑 Indice delle sezioni</h2>
@@ -127,7 +121,7 @@
     </div>
   </section>
 
-  <!-- Sezione Video -->
+  <!-- Video -->
   <section id="video" class="py-10 px-6 bg-white text-center">
     <div class="max-w-4xl mx-auto">
       <h2 class="text-2xl font-semibold text-amber-700 mb-4">🎥 Video di Benvenuto</h2>
@@ -142,7 +136,7 @@
     </div>
   </section>
 
-  <!-- Sezione Manuali -->
+  <!-- Manuali -->
   <section id="manuali" class="py-10 px-6 bg-amber-50 border-t border-b border-amber-200 text-center">
     <div class="max-w-3xl mx-auto">
       <img src="assets/img/logo-video-istruzioni.png"
@@ -170,114 +164,89 @@
     </div>
   </section>
 
-  <!-- Sezione Parcheggio -->
+  <!-- Parcheggio -->
   <section id="parcheggio" class="py-16 px-6 bg-amber-50 border-t border-amber-200">
     <div class="max-w-5xl mx-auto text-center">
       <h2 class="text-3xl font-bold text-amber-700 mb-6">🅿️ Dove parcheggiare</h2>
       <p class="text-gray-700 mb-8">
-        Il parcheggio gratuito si trova in <strong>Linty Waeg</strong>, a circa <strong>100 metri dall’appartamento</strong>, 
-        in un’area sterrata prima della ZTL. Parcheggia dove vedi la <strong>macchina nera</strong>: è facilmente raggiungibile a piedi in meno di due minuti.
+        Il parcheggio gratuito si trova in <strong>Linty Waeg</strong>, a circa <strong>100 metri</strong> dall’appartamento, in un’area sterrata prima della ZTL.
       </p>
-      <p class="mt-6 text-amber-700 font-semibold">
-        <a href="https://maps.app.goo.gl/koDVARqKwYV6F6Wb6" target="_blank" rel="noopener" class="hover:underline">
-          👉 <strong>Apri la posizione su Google Maps</strong>
-        </a>
-      </p>
+      <a href="https://maps.app.goo.gl/koDVARqKwYV6F6Wb6" target="_blank" rel="noopener" class="hover:underline text-amber-700 font-semibold">
+        👉 Apri la posizione su Google Maps
+      </a>
       <img src="assets/img/Parcheggio.png" alt="Parcheggio Nido nel Cuore Walser"
-           class="rounded-xl shadow-lg mb-8 mx-auto w-full md:w-2/3">
-      <div class="rounded-xl overflow-hidden shadow-lg aspect-w-16 aspect-h-9">
-        <iframe 
-          src="https://www.google.com/maps?q=45.780908,7.8244570&hl=it&z=18&output=embed"
-          width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
-      </div>
+           class="rounded-xl shadow-lg mb-8 mx-auto w-full md:w-2/3 mt-4">
     </div>
   </section>
 
-  <!-- Sezione Info Utili -->
+  <!-- Info utili -->
   <section id="infoutili" class="py-10 px-6 bg-white border-t border-amber-200 text-center">
-    <div class="max-w-4xl mx-auto">
-      <h2 class="text-3xl font-bold text-amber-700 mb-6">ℹ️ Ulteriori Info</h2>
+    <div class="max-w-4xl mx-auto text-gray-700 text-left space-y-6">
+      <h2 class="text-3xl font-bold text-amber-700 mb-6 text-center">ℹ️ Ulteriori informazioni utili</h2>
 
-      <div class="text-gray-700 text-left space-y-6">
+      <div>
+        <h3 class="text-2xl font-semibold text-amber-600 mb-2">🚌 Trasporti pubblici</h3>
+        <p>La società <strong>V.I.T.A. S.p.A.</strong> collega <strong>Pont-Saint-Martin</strong> a <strong>Stafal</strong>. I biglietti si acquistano a bordo.</p>
+        <p>Consulta l’orario ufficiale sul sito:</p>
+        <a href="https://www.vitagroup.it/linee-urbane-extra-vda/" target="_blank" class="text-amber-700 hover:underline font-semibold">www.vitagroup.it</a>
+      </div>
 
-        <div>
-          <h3 class="text-2xl font-semibold text-amber-600 mb-2">🚌 Trasporti pubblici</h3>
-          <p>Il trasporto via bus nella valle di Gressoney è gestito dalla società <strong>V.I.T.A. S.p.A.</strong> La linea collega <strong>Pont Saint Martin</strong> a <strong>Stafal</strong> e il biglietto è acquistabile a bordo del mezzo.</p>
-          <p>Nella sezione “<em>Linee-Orari</em>” del loro sito, l’orario è contenuto nel file PDF <strong>“Pont-Saint-Martin – Gressoney-La-Trinité”</strong>, aggiornato frequentemente.</p>
-          <p class="text-red-700 font-medium">⚠️ Attenzione: se cerchi su Google “orari bus Gressoney”, il PDF proposto non sempre è aggiornato.</p>
-          <p class="mt-2">🔗 <a href="https://www.vitagroup.it/linee-urbane-extra-vda/" target="_blank" class="text-amber-700 hover:underline font-semibold">Sito ufficiale V.I.T.A. S.p.A.</a></p>
-        </div>
+      <div>
+        <h3 class="text-2xl font-semibold text-amber-600 mb-2">🥾 Sentieri</h3>
+        <a href="https://www.sentierigressoney.it/sentieri-di-gressoney-saint-jean/" target="_blank" class="text-amber-700 hover:underline font-semibold">
+          sentierigressoney.it – Mappa percorsi ufficiali
+        </a>
+      </div>
 
-        <div>
-          <h3 class="text-2xl font-semibold text-amber-600 mb-2">🥾 Sentieri di Gressoney-Saint-Jean</h3>
-          <p>Scopri i percorsi escursionistici ufficiali e le mappe aggiornate dei sentieri alpini:</p>
-          <p>🔗 <a href="https://www.sentierigressoney.it/sentieri-di-gressoney-saint-jean/" target="_blank" class="text-amber-700 hover:underline font-semibold">sentierigressoney.it – Sentieri di Gressoney-Saint-Jean</a></p>
-        </div>
+      <div>
+        <h3 class="text-2xl font-semibold text-amber-600 mb-2">🎿 Piste da sci</h3>
+        <a href="https://www.skilife.ski/gressoney-sj/piste-e-impianti/" target="_blank" class="text-amber-700 hover:underline font-semibold">
+          skilife.ski – Piste e impianti Gressoney-Saint-Jean
+        </a>
+      </div>
 
-        <div>
-          <h3 class="text-2xl font-semibold text-amber-600 mb-2">🎿 Piste e Impianti sciistici</h3>
-          <p>Informazioni su piste, impianti e condizioni di innevamento a Gressoney-Saint-Jean:</p>
-          <p>🔗 <a href="https://www.skilife.ski/gressoney-sj/piste-e-impianti/" target="_blank" class="text-amber-700 hover:underline font-semibold">skilife.ski – Piste e Impianti Gressoney-Saint-Jean</a></p>
-
-          <div class="mt-4 space-y-2">
-            <p>🚡 <a href="https://maps.app.goo.gl/GveV731Fr6YnHd5e7?g_st=ipc" target="_blank" class="text-amber-700 hover:underline">Posizione Pista Weismatten</a></p>
-            <p>🚡 <a href="https://maps.app.goo.gl/XFmVcw6TQHkL5Bjm8?g_st=ipc" target="_blank" class="text-amber-700 hover:underline">Posizione Pista Stafal (versante soleggiato)</a></p>
-          </div>
-        </div>
-
-        <div>
-          <h3 class="text-2xl font-semibold text-amber-600 mb-2">🏔️ Ufficio del Turismo – Gressoney-Saint-Jean</h3>
-          <p>
-            📍 <strong>Villa Deslex</strong><br>
-            <strong>11025 Gressoney-Saint-Jean (AO)</strong><br>
-            ☎️ <a href="tel:+390125355185" class="text-amber-700 hover:underline">(+39) 0125 355185</a><br>
-            📧 <a href="mailto:gressoney@turismo.vda.it" class="text-amber-700 hover:underline">gressoney@turismo.vda.it</a>
-          </p>
-        </div>
-
+      <div>
+        <h3 class="text-2xl font-semibold text-amber-600 mb-2">🏔️ Ufficio del Turismo</h3>
+        <p><strong>Villa Deslex – 11025 Gressoney-Saint-Jean (AO)</strong><br>
+           ☎️ <a href="tel:+390125355185" class="text-amber-700 hover:underline">(+39) 0125 355185</a><br>
+           📧 <a href="mailto:gressoney@turismo.vda.it" class="text-amber-700 hover:underline">gressoney@turismo.vda.it</a>
+        </p>
       </div>
     </div>
   </section>
 
+  <!-- Footer -->
   <custom-footer></custom-footer>
 
+  <!-- Script -->
   <script src="components/navbar.js"></script>
   <script src="components/footer.js"></script>
   <script>
     feather.replace();
 
-    // Scroll morbido per l'indice
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-          behavior: 'smooth'
-        });
+        document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
       });
     });
   </script>
 
+  <!-- Effetti -->
   <style>
-  @keyframes pulse-slow {
-    0%, 100% { transform: scale(1); opacity: 1; box-shadow: 0 0 10px rgba(255, 191, 0, 0.3); }
-    50% { transform: scale(1.05); opacity: 0.9; box-shadow: 0 0 20px rgba(255, 191, 0, 0.6); }
-  }
-  .animate-pulse-slow { animation: pulse-slow 3s ease-in-out infinite; }
+    @keyframes pulse-slow {
+      0%, 100% { transform: scale(1); opacity: 1; box-shadow: 0 0 10px rgba(255, 191, 0, 0.3); }
+      50% { transform: scale(1.05); opacity: 0.9; box-shadow: 0 0 20px rgba(255, 191, 0, 0.6); }
+    }
+    .animate-pulse-slow { animation: pulse-slow 3s ease-in-out infinite; }
 
-   
-/* Effetto lampeggiante elegante */
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.3; }
-}
-
-.blink-text {
-  animation: blink 1.8s ease-in-out infinite;
-}
-</style>
-
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    .blink-text {
+      animation: blink 1.8s ease-in-out infinite;
+    }
   </style>
 
 </body>
