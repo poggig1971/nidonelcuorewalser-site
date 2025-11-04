@@ -1,136 +1,189 @@
-class CustomFooter extends HTMLElement {
+class CustomNavbar extends HTMLElement {
   connectedCallback() {
     this.attachShadow({ mode: 'open' });
     this.shadowRoot.innerHTML = `
       <style>
-        footer {
-          background: #111827;
-          color: white;
-          padding: 4rem 2rem;
+        :host {
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          z-index: 1000;
+          transition: all 0.3s ease;
         }
-        .footer-container {
-          max-width: 1200px;
-          margin: 0 auto;
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-          gap: 2rem;
-          align-items: start;
-        }
-        .footer-section h3 {
-          font-size: 1.25rem;
-          font-weight: 600;
-          margin-bottom: 1.5rem;
-          color: #D97706;
-        }
-        .footer-section ul {
-          list-style: none;
-          padding: 0;
-          margin: 0;
-        }
-        .footer-section li {
-          margin-bottom: 0.75rem;
-        }
-        .footer-section a {
-          color: #E5E7EB;
-          text-decoration: none;
-          transition: color 0.2s;
-        }
-        .footer-section a:hover {
-          color: #D97706;
-        }
-        .social-links {
+        nav {
+          background: rgba(17, 24, 39, 0.9);
+          backdrop-filter: blur(10px);
+          padding: 1rem 2rem;
           display: flex;
-          gap: 1rem;
-          flex-wrap: wrap;
-          margin-top: 1rem;
+          justify-content: space-between;
+          align-items: center;
+          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
-        .social-links a {
+        .scrolled {
+          background: rgba(17, 24, 39, 0.98);
+          padding: 0.5rem 2rem;
+        }
+        .logo {
+          color: white;
+          font-weight: bold;
+          font-size: 1.5rem;
           display: flex;
           align-items: center;
-          justify-content: center;
-          width: 42px;
-          height: 42px;
-          background: rgba(255, 255, 255, 0.1);
-          border-radius: 50%;
+        }
+        .logo-icon {
+          color: #D97706;
+          margin-right: 0.5rem;
+        }
+        ul {
+          display: flex;
+          gap: 2rem;
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          align-items: center;
+        }
+        a {
+          color: white;
+          text-decoration: none;
+          font-weight: 500;
+          transition: color 0.2s;
+          position: relative;
+        }
+        a:hover {
+          color: #D97706;
+        }
+        a:after {
+          content: '';
+          position: absolute;
+          width: 0;
+          height: 2px;
+          bottom: -4px;
+          left: 0;
+          background-color: #D97706;
+          transition: width 0.3s;
+        }
+        a:hover:after {
+          width: 100%;
+        }
+        .book-now {
+          background: #D97706;
+          padding: 0.5rem 1.5rem;
+          border-radius: 9999px;
           transition: all 0.3s;
         }
-        .social-links a:hover {
-          background: #D97706;
-          transform: translateY(-3px) scale(1.1);
+        .book-now:hover {
+          background: #B45309;
+          transform: translateY(-2px);
         }
-        .copyright {
-          text-align: center;
-          margin-top: 3rem;
-          padding-top: 2rem;
-          border-top: 1px solid rgba(255, 255, 255, 0.1);
-          color: #9CA3AF;
-          font-size: 0.9rem;
+
+        /* 🔸 Aggiunta sezione icone social */
+        .social-icons {
+          display: flex;
+          gap: 0.75rem;
+          align-items: center;
+          margin-left: 1rem;
         }
+
+        .social-icons a {
+          color: white;
+          transition: color 0.2s, transform 0.2s;
+          font-size: 1.2rem;
+        }
+
+        .social-icons a:hover {
+          color: #D97706;
+          transform: scale(1.15);
+        }
+
+        .mobile-menu-button {
+          display: none;
+          background: none;
+          border: none;
+          color: white;
+          font-size: 1.5rem;
+          cursor: pointer;
+        }
+
         @media (max-width: 768px) {
-          .footer-container {
-            grid-template-columns: 1fr;
-            text-align: center;
+          ul {
+            display: none;
           }
-          .social-links {
-            justify-content: center;
+          .mobile-menu-button {
+            display: block;
+          }
+          .mobile-menu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(17, 24, 39, 0.98);
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+          }
+          .social-icons {
+            display: none;
           }
         }
       </style>
 
-      <footer>
-        <div class="footer-container">
-
-          <!-- Sezione Social -->
-          <div class="footer-section">
-            <h3>Seguici</h3>
-            <div class="social-links">
-              <a href="https://www.facebook.com/nidonelcuorewalser/" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
-                <i data-feather="facebook"></i>
-              </a>
-              <a href="https://www.instagram.com/nidonelcuorewalser/" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
-                <i data-feather="instagram"></i>
-              </a>
-              <a href="https://www.tiktok.com/@nido.nel.cuore.walser" aria-label="TikTok" target="_blank" rel="noopener noreferrer">
-                <i data-feather="music"></i>
-              </a>
-              <a href="https://www.youtube.com/@nidonelcuorewalser" aria-label="YouTube" target="_blank" rel="noopener noreferrer">
-                <i data-feather="youtube"></i>
-              </a>
-            </div>
-          </div>
-
-          <!-- Link Veloci -->
-          <div class="footer-section">
-            <h3>Link veloci</h3>
-            <ul>
-              <li><a href="/">Home</a></li>
-              <li><a href="#descrizione">Descrizione</a></li>
-              <li><a href="#mappa">Mappa</a></li>
-              <li><a href="#booking">Prenotazioni</a></li>
-              <li><a href="https://www.airbnb.it/rooms/1044803211763912273" target="_blank">Airbnb</a></li>
-            </ul>
-          </div>
-
-          <!-- Contatti -->
-          <div class="footer-section">
-            <h3>Contatti</h3>
-            <ul>
-              <li><i data-feather="map-pin" class="inline mr-2"></i> Via Linty Waeg 4, Gressoney-Saint-Jean (AO)</li>
-              <li><i data-feather="phone" class="inline mr-2"></i> <a href="tel:+393358321878">+39 335 8321878</a></li>
-              <li><i data-feather="mail" class="inline mr-2"></i> <a href="mailto:info@nidonelcuorewalser.it">info@nidonelcuorewalser.it</a></li>
-            </ul>
-          </div>
+      <nav id="navbar">
+        <div class="logo">
+          <i data-feather="home" class="logo-icon"></i>
+          <span>Nido nel Cuore Walser</span>
         </div>
 
-        <div class="copyright">
-          <p>&copy; ${new Date().getFullYear()} Nido nel Cuore Walser. Tutti i diritti riservati.</p>
+        <button class="mobile-menu-button" id="menuButton">
+          <i data-feather="menu"></i>
+        </button>
+
+        <ul id="navLinks">
+          <li><a href="/">Home</a></li>
+          <li><a href="#descrizione">Descrizione</a></li>
+          <li><a href="#mappa">Mappa</a></li>
+          <li><a href="#booking" class="book-now">Prenota Ora</a></li>
+        </ul>
+
+        <div class="social-icons">
+          <a href="https://www.instagram.com/nidonelcuorewalser/" target="_blank" aria-label="Instagram">
+            <i data-feather="instagram"></i>
+          </a>
+          <a href="https://www.tiktok.com/@nido.nel.cuore.walser" target="_blank" aria-label="TikTok">
+            <i data-feather="music"></i>
+          </a>
+          <a href="https://www.facebook.com/nidonelcuorewalser/" target="_blank" aria-label="Facebook">
+            <i data-feather="facebook"></i>
+          </a>
+          <a href="https://www.youtube.com/@nidonelcuorewalser" target="_blank" aria-label="YouTube">
+            <i data-feather="youtube"></i>
+          </a>
         </div>
-      </footer>
+      </nav>
     `;
 
-    // Attiva le icone feather
+    // Mobile menu toggle
+    const menuButton = this.shadowRoot.getElementById('menuButton');
+    const navLinks = this.shadowRoot.getElementById('navLinks');
+    
+    menuButton.addEventListener('click', () => {
+      navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+    });
+
+    // Scroll effect
+    const navbar = this.shadowRoot.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // Initialize feather icons
     feather.replace();
   }
 }
 
-customElements.define('custom-footer', CustomFooter);
+customElements.define('custom-navbar', CustomNavbar);
