@@ -30,10 +30,16 @@ class CustomNavbar extends HTMLElement {
           font-size: 1.5rem;
           display: flex;
           align-items: center;
+          gap: 0.5rem;
+        }
+        .logo img {
+          height: 32px;
+          width: 32px;
+          border-radius: 50%;
+          box-shadow: 0 0 6px rgba(0,0,0,0.3);
         }
         .logo-icon {
           color: #D97706;
-          margin-right: 0.5rem;
         }
         ul {
           display: flex;
@@ -122,20 +128,25 @@ class CustomNavbar extends HTMLElement {
           }
         }
       </style>
+
       <nav id="navbar">
         <div class="logo">
+          <img src="assets/img/LogoNido.png" alt="Logo Nido nel Cuore Walser">
           <i data-feather="home" class="logo-icon"></i>
           <span>Nido nel Cuore Walser</span>
         </div>
+
         <button class="mobile-menu-button" id="menuButton">
           <i data-feather="menu"></i>
         </button>
+
         <ul id="navLinks">
           <li><a href="/">Home</a></li>
           <li><a href="#descrizione">Descrizione</a></li>
           <li><a href="#mappa">Mappa</a></li>
           <li><a href="#booking" class="book-now">Prenota Ora</a></li>
         </ul>
+
         <div class="social-icons">
           <a href="https://www.instagram.com/nidonelcuorewalser/" target="_blank" aria-label="Instagram">
             <i data-feather="instagram"></i>
@@ -170,7 +181,7 @@ class CustomNavbar extends HTMLElement {
       }
     });
 
-    // ✅ Feather icons — compatibile desktop + iPhone
+    // Feather icons rendering
     if (window.feather) {
       const icons = this.shadowRoot.querySelectorAll('i[data-feather]');
       icons.forEach(icon => {
