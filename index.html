@@ -243,44 +243,168 @@
             </h3>
           </div>
         </div>
-<!-- 📅 DISPONIBILITÀ APPARTAMENTO – Google Calendar Embed -->
-<section id="google-calendar-iframe" class="py-16 px-4 bg-amber-50 text-center">
-  <div class="max-w-6xl mx-auto">
-    <h2 class="text-3xl font-bold text-amber-700 mb-8">📅 Verifica la Disponibilità</h2>
-
-    <div class="rounded-xl overflow-hidden shadow-lg mx-auto" style="max-width: 800px; height: 500px;">
-      <iframe 
-        src="https://calendar.google.com/calendar/embed?src=nidowalser%40gmail.com&ctz=Europe%2FRome&mode=MONTH&color=%23D50000&showTitle=0&showPrint=0&showTabs=0" 
-        style="border:0; width:100%; height:550px;" 
-        frameborder="0" 
-        scrolling="no"
-        allowfullscreen>
-      </iframe>
-    </div>
-    
-</section>
-    
 </section>
 
-    <p class="text-gray-500 text-xs mt-4">
-      La disponibilità è aggiornata in tempo reale su Google Calendar.<br>
-      I periodi contrassegnati come “Occupato” non sono prenotabili.
+<section id="widget-disponibilita" class="py-16 px-4 bg-white text-center border-t border-amber-100">
+  <div class="max-w-4xl mx-auto">
+    <h2 class="text-3xl font-bold text-amber-700 mb-4">📅 Disponibilità appartamento</h2>
+    <p class="text-gray-600 mb-8">
+      Consulta i periodi <span class="text-green-600 font-semibold">liberi</span> e
+      <span class="text-red-600 font-semibold">occupati</span> aggiornati in tempo reale.
     </p>
+
+    <div class="flex justify-center items-center gap-4 mb-6 text-sm">
+      <div class="flex items-center gap-1"><div class="w-4 h-4 bg-green-300 rounded"></div> Libero</div>
+      <div class="flex items-center gap-1"><div class="w-4 h-4 bg-red-400 rounded"></div> Occupato</div>
+      <div class="flex items-center gap-1"><div class="w-4 h-4 bg-gray-200 rounded"></div> Giorno passato</div>
+    </div>
+
+    <div class="flex justify-center items-center mb-6 gap-4">
+      <button id="prevMonth" class="px-3 py-1 bg-amber-600 hover:bg-amber-700 text-white rounded-lg">◀️</button>
+      <h3 id="monthTitle" class="text-xl font-semibold text-gray-800"></h3>
+      <button id="nextMonth" class="px-3 py-1 bg-amber-600 hover:bg-amber-700 text-white rounded-lg">▶️</button>
+    </div>
+
+    <div id="calendarGrid" class="grid grid-cols-7 gap-2 text-sm font-medium">
+        <div class="p-3 font-bold text-gray-700">Dom</div>
+        <div class="p-3 font-bold text-gray-700">Lun</div>
+        <div class="p-3 font-bold text-gray-700">Mar</div>
+        <div class="p-3 font-bold text-gray-700">Mer</div>
+        <div class="p-3 font-bold text-gray-700">Gio</div>
+        <div class="p-3 font-bold text-gray-700">Ven</div>
+        <div class="p-3 font-bold text-gray-700">Sab</div>
+    </div>
+
+    <p class="text-gray-500 text-xs mt-6">Aggiornamento automatico (fonte Google Calendar .ics)</p>
   </div>
 </section>
-      </div>
-    </div>
-  </section>
 
-
-
-
-
+        
+        
 
 <custom-footer></custom-footer>
-
 <script src="components/navbar.js"></script>
 <script src="components/footer.js"></script>
 <script src="script.js"></script>
+
+
+<script>
+// === LINK CALENDARIO PUBBLICO (.ICS) ===
+const ICS_URL = "https://calendar.google.com/calendar/ical/nidowalser%40gmail.com/public/basic.ics"; 
+
+// === ELEMENTI DOM ===
+const monthTitle = document.getElementById("monthTitle");
+const grid = document.getElementById("calendarGrid");
+const prevBtn = document.getElementById("prevMonth");
+const nextBtn = document.getElementById("nextMonth");
+
+let currentDate = new Date();
+
+// === FUNZIONE PRINCIPALE ===
+async function renderCalendar() {
+  // Rimuovi solo i giorni, ma lascia gli header dei giorni della settimana (i primi 7 elementi)
+  while (grid.children.length > 7) { 
+    grid.removeChild(grid.lastChild);
+  }
+  
+  const year = currentDate.getFullYear();
+  const month = currentDate.getMonth();
+
+  const firstDay = new Date(year, month, 1);
+  const lastDay = new Date(year, month + 1, 0);
+  const daysInMonth = lastDay.getDate();
+  // Calcolo del giorno di inizio: 1=Lun, ..., 7=Dom
+  const startDay = firstDay.getDay() === 0 ? 7 : firstDay.getDay(); 
+
+  const monthNames = [
+    "Gennaio","Febbraio","Marzo","Aprile","Maggio","Giugno",
+    "Luglio","Agosto","Settembre","Ottobre","Novembre","Dicembre"
+  ];
+  monthTitle.textContent = `${monthNames[month]} ${year}`;
+
+  // 1. giorni vuoti prima del 1°
+  for (let i = 1; i < startDay; i++) {
+    const empty = document.createElement("div");
+    grid.appendChild(empty);
+  }
+
+  // 2. giorni del mese (default: Libero/Passato)
+  const today = new Date().setHours(0,0,0,0);
+  for (let i = 1; i <= daysInMonth; i++) {
+    const dayBox = document.createElement("div");
+    const date = new Date(year, month, i).setHours(0,0,0,0);
+    dayBox.id = `day-${i}`; 
+    let cls = "p-3 border rounded-lg text-gray-800 transition text-center cursor-default h-14 flex items-center justify-center font-medium";
+    
+    // Giorno passato (grigio)
+    if (date < today) {
+        cls += " bg-gray-200 text-gray-500";
+    } 
+    // Giorno futuro/attuale (verde - Libero)
+    else {
+        cls += " bg-green-100 hover:bg-green-200";
+    }
+
+    dayBox.className = cls;
+    dayBox.textContent = i;
+    grid.appendChild(dayBox);
+  }
+
+  // 3. === PARSING .ICS e Marcatura Occupato ===
+  try {
+    const res = await fetch(ICS_URL);
+    if (!res.ok) throw new Error("Errore nel caricamento ICS");
+    const text = await res.text();
+    
+    // Pattern per estrarre DTSTART e DTEND
+    const startMatches = [...text.matchAll(/DTSTART(?:;[^:]+)?:([0-9T]+)/g)];
+    const endMatches = [...text.matchAll(/DTEND(?:;[^:]+)?:([0-9T]+)/g)];
+
+    for (let i = 0; i < startMatches.length; i++) {
+      const startStr = startMatches[i][1];
+      const endStr = endMatches[i] ? endMatches[i][1] : startStr;
+
+      // Conversione al formato Date (solo YYYY, MM, DD)
+      const start = new Date(startStr.slice(0,4), startStr.slice(4,6)-1, startStr.slice(6,8));
+      const end = new Date(endStr.slice(0,4), endStr.slice(4,6)-1, endStr.slice(6,8));
+
+      // Ciclo su ogni giorno di prenotazione (DTEND è spesso il giorno dopo la fine del soggiorno)
+      for (let d = new Date(start); d.getTime() < end.getTime(); d.setDate(d.getDate()+1)) {
+        
+        if (d.getFullYear() === year && d.getMonth() === month) {
+          const day = d.getDate();
+          const dayBox = document.getElementById(`day-${day}`);
+
+          if (dayBox) {
+            // Rimuovi classe Libero (verde)
+            dayBox.classList.remove("bg-green-100", "hover:bg-green-200");
+            
+            // Aggiungi classe Occupato (rosso)
+            dayBox.classList.add("bg-red-400", "text-white", "font-bold");
+          }
+        }
+      }
+    }
+
+  } catch (error) {
+    console.error("Errore nel widget calendario ICS:", error);
+    // Messaggio di fallback in caso di errore di caricamento
+    const fallback = document.createElement("p");
+    fallback.className = "col-span-7 text-red-600 mt-4";
+    fallback.textContent = "Errore nel caricamento della disponibilità. Riprova più tardi.";
+    grid.parentNode.insertBefore(fallback, grid.nextSibling);
+  }
+}
+
+// navigazione
+prevBtn.addEventListener("click", () => { currentDate.setMonth(currentDate.getMonth()-1); renderCalendar(); });
+nextBtn.addEventListener("click", () => { currentDate.setMonth(currentDate.getMonth()+1); renderCalendar(); });
+
+// avvio
+renderCalendar();
+</script>
+
+
+        
 </body>
 </html>
