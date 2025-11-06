@@ -310,14 +310,12 @@ function renderCalendar() {
   ];
   monthTitle.textContent = `${monthNames[month]} ${year}`;
 
-  // Offset per iniziare dal giorno corretto della settimana
   const startDay = firstDay.getDay() === 0 ? 7 : firstDay.getDay();
   for (let i = 1; i < startDay; i++) {
     const empty = document.createElement('div');
     grid.appendChild(empty);
   }
 
-  // Crea le celle giorno
   for (let i = 1; i <= daysInMonth; i++) {
     const dayBox = document.createElement('div');
     const dayDate = new Date(year, month, i);
@@ -335,7 +333,7 @@ function renderCalendar() {
     grid.appendChild(dayBox);
   }
 
-  // === RECUPERA EVENTI DAL CALENDARIO GOOGLE ===
+  // === RECUPERO EVENTI GOOGLE CALENDAR ===
   const timeMin = new Date(year, month, 1).toISOString();
   const timeMax = new Date(year, month + 1, 1).toISOString();
   const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?key=${apiKey}&timeMin=${timeMin}&timeMax=${timeMax}&singleEvents=true&orderBy=startTime`;
@@ -346,16 +344,15 @@ function renderCalendar() {
       if (!data.items) return;
 
       data.items.forEach(event => {
-        // Gestione uniforme per eventi giornalieri e con orario
         const start = new Date(event.start.date || event.start.dateTime);
         const end = new Date(event.end.date || event.end.dateTime);
 
-        // Normalizza alle 00:00 per includere tutti i giorni
+        // Normalizza alle 00:00
         start.setHours(0, 0, 0, 0);
         end.setHours(0, 0, 0, 0);
 
-        // Marca tutti i giorni dal primo all’ultimo incluso
-        for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
+        // Colora tutti i giorni tra start e end (inclusi)
+        for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
           if (d.getMonth() !== currentDate.getMonth()) continue;
           const day = d.getDate();
           const offset = (startDay - 1) + (day - 1);
@@ -363,6 +360,7 @@ function renderCalendar() {
           if (box) {
             box.classList.remove('bg-green-100', 'hover:bg-green-200');
             box.classList.add('bg-red-400', 'text-white');
+            box.title = event.summary || 'Occupato'; // Tooltip al passaggio del mouse
           }
         }
       });
@@ -381,9 +379,10 @@ nextBtn.addEventListener('click', () => {
   renderCalendar();
 });
 
-// === AVVIO ===
+// === INIZIALIZZAZIONE ===
 renderCalendar();
 </script>
+
 
 
 }
