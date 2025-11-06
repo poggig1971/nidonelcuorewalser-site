@@ -293,7 +293,7 @@ const nextBtn = document.getElementById('nextMonth');
 // === STATO CORRENTE ===
 let currentDate = new Date();
 
-// === FUNZIONI ===
+// === FUNZIONE PRINCIPALE ===
 function renderCalendar() {
   grid.innerHTML = '';
 
@@ -310,14 +310,14 @@ function renderCalendar() {
   ];
   monthTitle.textContent = `${monthNames[month]} ${year}`;
 
-  // Giorni della settimana
-  const startDay = firstDay.getDay() === 0 ? 7 : firstDay.getDay(); // Lunedì = 1
+  // Offset per iniziare dal giorno corretto della settimana
+  const startDay = firstDay.getDay() === 0 ? 7 : firstDay.getDay();
   for (let i = 1; i < startDay; i++) {
     const empty = document.createElement('div');
     grid.appendChild(empty);
   }
 
-  // Crea giorni
+  // Crea le celle giorno
   for (let i = 1; i <= daysInMonth; i++) {
     const dayBox = document.createElement('div');
     const dayDate = new Date(year, month, i);
@@ -335,28 +335,31 @@ function renderCalendar() {
     grid.appendChild(dayBox);
   }
 
-  // Recupera eventi
-  const start = new Date(year, month, 1).toISOString();
-  const end = new Date(year, month + 1, 0).toISOString();
-  const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?key=${apiKey}&timeMin=${start}&timeMax=${end}&singleEvents=true&orderBy=startTime`;
+  // === RECUPERA EVENTI DAL CALENDARIO GOOGLE ===
+  const timeMin = new Date(year, month, 1).toISOString();
+  const timeMax = new Date(year, month + 1, 1).toISOString();
+  const url = `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(calendarId)}/events?key=${apiKey}&timeMin=${timeMin}&timeMax=${timeMax}&singleEvents=true&orderBy=startTime`;
 
-    fetch(url)
+  fetch(url)
     .then(res => res.json())
     .then(data => {
       if (!data.items) return;
 
       data.items.forEach(event => {
-        // Calcola la data di inizio e fine evento
+        // Gestione uniforme per eventi giornalieri e con orario
         const start = new Date(event.start.date || event.start.dateTime);
         const end = new Date(event.end.date || event.end.dateTime);
 
-        // Ogni giorno tra start e end viene segnato come occupato
-        for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
-          const day = d.getDate();
-          const monthOffset = startDay - 1; // offset primo giorno del mese
-          const index = monthOffset + day - 1;
+        // Normalizza alle 00:00 per includere tutti i giorni
+        start.setHours(0, 0, 0, 0);
+        end.setHours(0, 0, 0, 0);
 
-          const box = grid.children[index];
+        // Marca tutti i giorni dal primo all’ultimo incluso
+        for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
+          if (d.getMonth() !== currentDate.getMonth()) continue;
+          const day = d.getDate();
+          const offset = (startDay - 1) + (day - 1);
+          const box = grid.children[offset];
           if (box) {
             box.classList.remove('bg-green-100', 'hover:bg-green-200');
             box.classList.add('bg-red-400', 'text-white');
@@ -365,6 +368,23 @@ function renderCalendar() {
       });
     })
     .catch(err => console.error('Errore nel caricamento eventi:', err));
+}
+
+// === NAVIGAZIONE TRA MESI ===
+prevBtn.addEventListener('click', () => {
+  currentDate.setMonth(currentDate.getMonth() - 1);
+  renderCalendar();
+});
+
+nextBtn.addEventListener('click', () => {
+  currentDate.setMonth(currentDate.getMonth() + 1);
+  renderCalendar();
+});
+
+// === AVVIO ===
+renderCalendar();
+</script>
+
 
 }
 
