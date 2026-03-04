@@ -1,6 +1,6 @@
 <<<<<<< HEAD
 ---
-title: Alpine Nest Retreat 🏔️
+title:  Alpine Nest Retreat 🏔️
 colorFrom: purple
 colorTo: green
 emoji: 🐳
