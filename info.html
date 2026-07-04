@@ -8,7 +8,7 @@
   <meta name="robots" content="noindex, nofollow">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="icon" type="image/png" href="favicon.PNG">
   <link rel="shortcut icon" href="favicon.ico">
 
   <!-- Stili e librerie -->
@@ -49,7 +49,7 @@
 
   <!-- Immagine principale -->
   <div class="bg-white">
-    <img src="assets/img/Prima Foto.PNG"
+    <img src="assets/img/PrimaFoto.PNG"
          alt="Vista esterna Nido nel Cuore Walser"
          class="w-full max-h-[500px] object-cover shadow-md">
   </div>
@@ -162,7 +162,8 @@
       <h2 class="text-3xl font-bold text-amber-700 mb-6">📝 Check-in e Documenti di soggiorno</h2>
       <p class="text-gray-700 mb-8 leading-relaxed">
         Per velocizzare le procedure di registrazione presso la Questura, ti chiediamo di compilare online il 
-        <strong>modulo di raccolta dati</strong> prima dell’arrivo. Inserire anche la targa dell auto per consentire la richiesta accesso alla ZTL (Tempo pratica 21 gg) non accedere senza avere ricevuto il nullaosta
+        <strong>modulo di raccolta dati</strong> prima dell’arrivo. Inserire anche la targa dell’auto per consentire la richiesta di accesso alla ZTL
+        (tempi di rilascio della pratica: 21 giorni); non accedere alla ZTL senza aver ricevuto il nulla osta.
         Puoi inoltre visionare il <strong>mini contratto di locazione turistica</strong> che regola il soggiorno al Nido nel Cuore Walser.
       </p>
 
@@ -224,8 +225,7 @@
     <li><strong>Ufficio Turistico</strong> – Villa Deslex 11025 GRESSONEY-SAINT-JEAN (+39) 0125.355185 gressoney@turismo.vda.it</li>
     <li><strong>Sportello Bancomat BCC</strong> – accanto alla chiesa parrocchiale</li>
     <li><strong>Ufficio Postale</strong> – orario lun–ven 8:20–13:45 Villa Deslex 11025 GRESSONEY-SAINT-JEAN (+39) 0125 355137</li>
-    li><strong>Sportello Bancomat BCC</strong> – accanto alla chiesa parrocchiale</li>
-    <li><strong>🚑 Carabinieri Gressoney</strong> – tel. 112</li>
+    <li><strong>🚓 Carabinieri Gressoney</strong> – tel. 112</li>
   </ul>
 </div>
 
@@ -243,8 +243,8 @@
 <div>
   <h3 class="text-2xl font-semibold text-amber-600 mb-2">⛷️ Impianti di risalita e scuola sci</h3>
   <p>
-    Il comprensorio <strong>Monterosa Ski</strong>   La Val d’Ayas, la Valle di Gressoney, la Valsesia e la Valle di Champorcher sono ai tuoi piedi.</strong>, 
-    offrendo oltre 180 km di piste perfettamente battute. Gli impianti del Weismatten sono a 10 minuti dal centro del Paese.
+    Il comprensorio <strong>Monterosa Ski</strong> collega la Valle di Gressoney con la Val d’Ayas e la Valsesia,
+    offrendo oltre 180 km di piste perfettamente battute. Gli impianti del Weissmatten sono a 10 minuti dal centro del paese.
   </p>
   <p class="mt-2">
     In estate, le seggiovie restano aperte per escursioni panoramiche e trekking in quota con vista sul Monte Rosa.
@@ -278,13 +278,14 @@
 
   <!-- Footer minimale -->
   <footer class="bg-gray-900 text-gray-300 py-6 text-center text-sm">
-    <p>&copy; ${new Date().getFullYear()} Nido nel Cuore Walser – Tutti i diritti riservati.</p>
+    <p>&copy; <span id="anno-corrente">2026</span> Nido nel Cuore Walser – Tutti i diritti riservati.</p>
     <p class="text-gray-500 mt-1">Pagina riservata esclusivamente agli ospiti</p>
   </footer>
 
   <!-- Script -->
   <script>
     feather.replace();
+    document.getElementById('anno-corrente').textContent = new Date().getFullYear();
   </script>
 
   <style>

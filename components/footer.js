@@ -1,189 +1,65 @@
-class CustomNavbar extends HTMLElement {
+class CustomFooter extends HTMLElement {
   connectedCallback() {
     this.attachShadow({ mode: 'open' });
     this.shadowRoot.innerHTML = `
       <style>
-        :host {
-          position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          z-index: 1000;
-          transition: all 0.3s ease;
-        }
-        nav {
-          background: rgba(17, 24, 39, 0.9);
-          backdrop-filter: blur(10px);
-          padding: 1rem 2rem;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-        .scrolled {
-          background: rgba(17, 24, 39, 0.98);
-          padding: 0.5rem 2rem;
-        }
-        .logo {
-          color: white;
-          font-weight: bold;
-          font-size: 1.5rem;
-          display: flex;
-          align-items: center;
-        }
-        .logo-icon {
-          color: #D97706;
-          margin-right: 0.5rem;
-        }
-        ul {
-          display: flex;
-          gap: 2rem;
-          list-style: none;
-          margin: 0;
-          padding: 0;
-          align-items: center;
+        footer {
+          background: #111827;
+          color: #d1d5db;
+          text-align: center;
+          padding: 2.5rem 1rem;
+          font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+          font-size: 0.875rem;
+          line-height: 1.7;
         }
         a {
-          color: white;
+          color: #F59E0B;
           text-decoration: none;
-          font-weight: 500;
-          transition: color 0.2s;
-          position: relative;
         }
         a:hover {
-          color: #D97706;
+          text-decoration: underline;
         }
-        a:after {
-          content: '';
-          position: absolute;
-          width: 0;
-          height: 2px;
-          bottom: -4px;
-          left: 0;
-          background-color: #D97706;
-          transition: width 0.3s;
-        }
-        a:hover:after {
-          width: 100%;
-        }
-        .book-now {
-          background: #D97706;
-          padding: 0.5rem 1.5rem;
-          border-radius: 9999px;
-          transition: all 0.3s;
-        }
-        .book-now:hover {
-          background: #B45309;
-          transform: translateY(-2px);
-        }
-
-        /* 🔸 Aggiunta sezione icone social */
-        .social-icons {
+        .social {
           display: flex;
-          gap: 0.75rem;
-          align-items: center;
-          margin-left: 1rem;
+          justify-content: center;
+          gap: 1.5rem;
+          margin-bottom: 1rem;
+          flex-wrap: wrap;
         }
-
-        .social-icons a {
-          color: white;
-          transition: color 0.2s, transform 0.2s;
-          font-size: 1.2rem;
+        .social a {
+          color: #d1d5db;
+          font-weight: 500;
         }
-
-        .social-icons a:hover {
-          color: #D97706;
-          transform: scale(1.15);
+        .social a:hover {
+          color: #F59E0B;
         }
-
-        .mobile-menu-button {
-          display: none;
-          background: none;
-          border: none;
-          color: white;
-          font-size: 1.5rem;
-          cursor: pointer;
+        .titolo {
+          color: #ffffff;
+          font-weight: 700;
         }
-
-        @media (max-width: 768px) {
-          ul {
-            display: none;
-          }
-          .mobile-menu-button {
-            display: block;
-          }
-          .mobile-menu {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: rgba(17, 24, 39, 0.98);
-            padding: 1rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-          }
-          .social-icons {
-            display: none;
-          }
+        .note {
+          color: #6b7280;
+          margin-top: 0.75rem;
         }
       </style>
 
-      <nav id="navbar">
-        <div class="logo">
-          <i data-feather="home" class="logo-icon"></i>
-          <span>Nido nel Cuore Walser</span>
+      <footer>
+        <div class="social">
+          <a href="https://www.instagram.com/nidonelcuorewalser/" target="_blank" rel="noopener">Instagram</a>
+          <a href="https://www.tiktok.com/@nido.nel.cuore.walser" target="_blank" rel="noopener">TikTok</a>
+          <a href="https://www.facebook.com/nidonelcuorewalser/" target="_blank" rel="noopener">Facebook</a>
+          <a href="https://www.youtube.com/@nidonelcuorewalser" target="_blank" rel="noopener">YouTube</a>
         </div>
-
-        <button class="mobile-menu-button" id="menuButton">
-          <i data-feather="menu"></i>
-        </button>
-
-        <ul id="navLinks">
-          <li><a href="/">Home</a></li>
-          <li><a href="#descrizione">Descrizione</a></li>
-          <li><a href="#mappa">Mappa</a></li>
-          <li><a href="#booking" class="book-now">Prenota Ora</a></li>
-        </ul>
-
-        <div class="social-icons">
-          <a href="https://www.instagram.com/nidonelcuorewalser/" target="_blank" aria-label="Instagram">
-            <i data-feather="instagram"></i>
-          </a>
-          <a href="https://www.tiktok.com/@nido.nel.cuore.walser" target="_blank" aria-label="TikTok">
-            <i data-feather="music"></i>
-          </a>
-          <a href="https://www.facebook.com/nidonelcuorewalser/" target="_blank" aria-label="Facebook">
-            <i data-feather="facebook"></i>
-          </a>
-          <a href="https://www.youtube.com/@nidonelcuorewalser" target="_blank" aria-label="YouTube">
-            <i data-feather="youtube"></i>
-          </a>
-        </div>
-      </nav>
+        <p><span class="titolo">Nido nel Cuore Walser</span> – Via Linty Waeg 4, 11025 Gressoney-Saint-Jean (AO)</p>
+        <p>
+          <a href="mailto:info@nidonelcuorewalser.it">info@nidonelcuorewalser.it</a>
+          &nbsp;·&nbsp;
+          <a href="https://wa.me/393358321878" target="_blank" rel="noopener">+39 335 8321878 (WhatsApp)</a>
+        </p>
+        <p class="note">&copy; ${new Date().getFullYear()} Nido nel Cuore Walser – Tutti i diritti riservati.</p>
+      </footer>
     `;
-
-    // Mobile menu toggle
-    const menuButton = this.shadowRoot.getElementById('menuButton');
-    const navLinks = this.shadowRoot.getElementById('navLinks');
-    
-    menuButton.addEventListener('click', () => {
-      navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
-    });
-
-    // Scroll effect
-    const navbar = this.shadowRoot.getElementById('navbar');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) {
-        navbar.classList.add('scrolled');
-      } else {
-        navbar.classList.remove('scrolled');
-      }
-    });
-
-    // Initialize feather icons
-    feather.replace();
   }
 }
 
-customElements.define('custom-navbar', CustomNavbar);
+customElements.define('custom-footer', CustomFooter);
