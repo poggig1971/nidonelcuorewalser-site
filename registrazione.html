@@ -1,10 +1,10 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="it">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex">
-<title>Registrazione Ospiti â€“ Nido nel Cuore Walser</title>
+<title>Registrazione Ospiti – Nido nel Cuore Walser</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
@@ -176,8 +176,8 @@
 <body>
 
 <header>
-  <div class="marchio">Nido nel <span>â™¥</span> Cuore Walser</div>
-  <p class="sottotitolo">Registrazione ospiti Â· Gressoney-Saint-Jean</p>
+  <div class="marchio">Nido nel <span>♥</span> Cuore Walser</div>
+  <p class="sottotitolo">Registrazione ospiti · Gressoney-Saint-Jean</p>
 </header>
 <div class="giunto" aria-hidden="true"></div>
 
@@ -198,21 +198,21 @@
     </div>
 
     <fieldset>
-      <legend>1 Â· Dati del soggiorno</legend>
+      <legend>1 · Dati del soggiorno</legend>
       <div class="griglia">
         <div>
           <label for="dataArrivo">Data di arrivo <span class="obbl">*</span></label>
           <input type="date" id="dataArrivo" name="dataArrivo" required>
         </div>
         <div>
-          <label for="notti">Notti di permanenza (max 28) <span class="obbl">*</span></label>
-          <input type="number" id="notti" name="notti" min="1" max="28" required>
+          <label for="notti">Notti di permanenza (max 30) <span class="obbl">*</span></label>
+          <input type="number" id="notti" name="notti" min="1" max="30" required>
         </div>
       </div>
     </fieldset>
 
     <fieldset>
-      <legend>2 Â· Dati anagrafici</legend>
+      <legend>2 · Dati anagrafici</legend>
       <div class="griglia">
         <div>
           <label for="cognome">Cognome <span class="obbl">*</span></label>
@@ -242,7 +242,7 @@
           <input type="text" id="codiceFiscale" name="codiceFiscale" class="maiusc" maxlength="16">
         </div>
         <div>
-          <label for="cittaResidenza">CittÃ  di residenza <span class="obbl">*</span></label>
+          <label for="cittaResidenza">Città di residenza <span class="obbl">*</span></label>
           <input type="text" id="cittaResidenza" name="cittaResidenza" class="maiusc" required>
         </div>
         <div>
@@ -257,14 +257,14 @@
     </fieldset>
 
     <fieldset>
-      <legend>3 Â· Documento di identitÃ </legend>
+      <legend>3 · Documento di identità</legend>
       <div class="griglia">
         <div class="campo-intero">
           <label for="tipoDocumento">Tipo di documento <span class="obbl">*</span></label>
           <select id="tipoDocumento" name="tipoDocumento" required>
-            <option value="">â€” Selezionare â€”</option>
-            <option>Carta d'identitÃ  elettronica</option>
-            <option>Carta d'identitÃ </option>
+            <option value="">— Selezionare —</option>
+            <option>Carta d'identità elettronica</option>
+            <option>Carta d'identità</option>
             <option>Passaporto</option>
             <option>Patente di guida</option>
           </select>
@@ -281,7 +281,7 @@
     </fieldset>
 
     <fieldset>
-      <legend>4 Â· Veicolo e note</legend>
+      <legend>4 · Veicolo e note</legend>
       <div class="griglia">
         <div class="campo-intero">
           <label for="veicoloTarga">Modello e targa del veicolo <span class="facolt">(per accesso ZTL)</span></label>
@@ -295,12 +295,12 @@
     </fieldset>
 
     <fieldset>
-      <legend>5 Â· Conferma e trattamento dati</legend>
+      <legend>5 · Conferma e trattamento dati</legend>
       <div class="consenso">
         <input type="checkbox" id="gdpr" name="gdpr" required>
         <label for="gdpr" style="font-weight:400">
           Dichiaro di aver fornito dati veritieri e autorizzo il trattamento ai sensi del
-          Reg. UE 679/2016 (GDPR) esclusivamente per finalitÃ  di registrazione ospiti e
+          Reg. UE 679/2016 (GDPR) esclusivamente per finalità di registrazione ospiti e
           comunicazioni obbligatorie alla Questura. <span class="obbl">*</span>
         </label>
       </div>
@@ -312,7 +312,7 @@
 </main>
 
 <footer>
-  Nido nel Cuore Walser Â· Gressoney-Saint-Jean Â·
+  Nido nel Cuore Walser · Gressoney-Saint-Jean ·
   <a href="mailto:info@nidonelcuorewalser.it">info@nidonelcuorewalser.it</a>
 </footer>
 
@@ -360,7 +360,7 @@ form.addEventListener('submit', async function (ev) {
   };
 
   btn.disabled = true;
-  btn.textContent = 'Invio in corsoâ€¦';
+  btn.textContent = 'Invio in corso…';
 
   try {
     // text/plain evita la preflight CORS verso Apps Script
@@ -373,7 +373,7 @@ form.addEventListener('submit', async function (ev) {
 
     if (json.ok) {
       esito.className = 'esito ok';
-      esito.textContent = 'âœ“ Registrazione inviata correttamente. Grazie! Vi aspettiamo a Gressoney.';
+      esito.textContent = '✓ Registrazione inviata correttamente. Grazie! Vi aspettiamo a Gressoney.';
       form.reset();
     } else {
       esito.className = 'esito errore';
@@ -399,4 +399,3 @@ function formattaData(iso) {
 </script>
 </body>
 </html>
-
