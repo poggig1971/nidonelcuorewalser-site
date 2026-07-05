@@ -144,6 +144,7 @@ class CustomNavbar extends HTMLElement {
           <li><a href="/">Home</a></li>
           <li><a href="#descrizione">Descrizione</a></li>
           <li><a href="#mappa">Mappa</a></li>
+          <li><a href="https://forms.gle/EY2i4GCxAFNV2sHn7" target="_blank">Registrazione Ospiti</a></li>
           <li><a href="#booking" class="book-now">Prenota Ora</a></li>
         </ul>
 
