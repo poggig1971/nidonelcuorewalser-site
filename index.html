@@ -121,10 +121,6 @@
           class="bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 px-7 rounded-lg transition duration-300 inline-flex items-center shadow-lg">
           <i data-feather="calendar" class="mr-2"></i> Verifica disponibilità
         </a>
-        <a href="registrazione.html"
-          class="bg-white/15 backdrop-blur-sm border border-white/40 hover:bg-white/30 text-white font-bold py-3 px-7 rounded-lg transition duration-300 inline-flex items-center shadow-lg">
-          <i data-feather="edit-3" class="mr-2"></i> Registrazione ospiti
-        </a>
       </div>
     </div>
   </section>
@@ -390,37 +386,60 @@
         </div>
       </div>
 
-      <section id="google-calendar-iframe" class="py-10 px-0 bg-white text-center rounded-xl shadow-xl">
-        <h2 class="text-3xl font-bold text-amber-700 mb-8">📅 Verifica la Disponibilità</h2>
+      <section id="google-calendar-iframe" class="py-10 px-6 bg-white text-center rounded-xl shadow-xl">
+        <h2 class="text-3xl font-bold text-amber-700 mb-6">📅 Verifica la Disponibilità</h2>
+        <p class="text-gray-600 mb-6">Periodi non disponibili nei prossimi mesi (aggiornato automaticamente):</p>
 
-        <div class="rounded-xl overflow-hidden shadow-lg mx-auto" style="max-width: 800px; height: 500px;">
-          <iframe
-            src="https://calendar.google.com/calendar/embed?src=nidowalser%40gmail.com&ctz=Europe%2FRome&mode=MONTH&color=%23D50000&showTitle=0&showPrint=0&showTabs=0"
-            style="border:0; width:100%; height:550px;"
-            frameborder="0"
-            scrolling="no"
-            allowfullscreen>
-          </iframe>
+        <div id="disponibilita" class="max-w-2xl mx-auto text-left">
+          <p class="text-gray-500 text-center py-6">Caricamento disponibilità…</p>
         </div>
-        <p class="text-gray-700 text-sm mt-4">
-          La disponibilità è aggiornata su Google Calendar (ritardi possibili).<br>
-          I periodi contrassegnati come "Occupato" non sono prenotabili.
-        </p>
+
+        <div class="flex justify-center gap-6 mt-6 text-sm">
+          <span class="inline-flex items-center gap-2"><span style="width:14px;height:14px;border-radius:4px;background:#b91c1c;display:inline-block"></span> Occupato</span>
+          <span class="inline-flex items-center gap-2"><span style="width:14px;height:14px;border-radius:4px;background:#d97706;display:inline-block"></span> In trattativa</span>
+        </div>
+        <p class="text-gray-700 mt-8">Tutte le altre date sono <strong>libere</strong>: 
+          <a href="https://wa.me/393358321878" target="_blank" rel="noopener" class="text-amber-700 font-semibold hover:underline">scrivici su WhatsApp</a> per bloccare il tuo periodo.</p>
       </section>
 
-      <!-- REGISTRAZIONE OSPITI -->
-      <section id="registrazione-ospiti" class="mt-10 py-10 px-6 bg-white text-center rounded-xl shadow-xl">
-        <h2 class="text-3xl font-bold text-amber-700 mb-4">📝 Registrazione ospiti</h2>
-        <p class="text-gray-700 max-w-2xl mx-auto mb-6">
-          Hai già una prenotazione confermata? Prima dell'arrivo compila la registrazione online:
-          i dati sono necessari per gli adempimenti di legge (comunicazione alla Questura),
-          per il contratto di locazione breve e per l'accesso alla Zona a Traffico Limitato.
-        </p>
-        <a href="registrazione.html"
-          class="bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 px-8 rounded-lg transition duration-300 inline-flex items-center shadow-lg">
-          <i data-feather="edit-3" class="mr-2"></i> Compila la registrazione
-        </a>
-      </section>
+      <script>
+        // Disponibilità in tempo reale dal gestionale (dati anonimi: solo periodi e stato)
+        var URL_DISPONIBILITA = 'INCOLLA_QUI_URL_APP_WEB'; // vedi istruzioni
+
+        function mostraDisponibilita(dati) {
+          var box = document.getElementById('disponibilita');
+          if (!dati || !dati.periodi) { fallbackDisponibilita(); return; }
+          if (dati.periodi.length === 0) {
+            box.innerHTML = '<p class="text-green-700 text-center font-semibold py-4">Nessun periodo occupato nei prossimi mesi: ampia disponibilità!</p>';
+            return;
+          }
+          var html = '';
+          dati.periodi.forEach(function (p) {
+            var colore = p.stato === 'OCCUPATO' ? '#b91c1c' : '#d97706';
+            var sfondo = p.stato === 'OCCUPATO' ? '#fde8e8' : '#fef3c7';
+            html += '<div style="display:flex;justify-content:space-between;align-items:center;padding:10px 16px;margin-bottom:8px;border-radius:10px;background:' + sfondo + '">'
+                 + '<span class="font-semibold text-gray-800">dal ' + p.dal + ' al ' + p.al + '</span>'
+                 + '<span style="color:' + colore + ';font-weight:800;font-size:13px;letter-spacing:.5px">' + p.stato + '</span></div>';
+          });
+          html += '<p class="text-gray-400 text-xs text-center mt-3">Aggiornato al ' + dati.aggiornato + '</p>';
+          box.innerHTML = html;
+        }
+        function fallbackDisponibilita() {
+          document.getElementById('disponibilita').innerHTML =
+            '<p class="text-gray-600 text-center py-4">Per verificare la disponibilità <a class="text-amber-700 font-semibold underline" href="https://wa.me/393358321878">contattaci su WhatsApp</a>.</p>';
+        }
+        (function () {
+          if (URL_DISPONIBILITA.indexOf('INCOLLA') === 0) { fallbackDisponibilita(); return; }
+          var s = document.createElement('script');
+          s.src = URL_DISPONIBILITA + '?api=disponibilita&callback=mostraDisponibilita';
+          s.onerror = fallbackDisponibilita;
+          document.body.appendChild(s);
+          setTimeout(function () {
+            var box = document.getElementById('disponibilita');
+            if (box && box.textContent.indexOf('Caricamento') >= 0) fallbackDisponibilita();
+          }, 8000);
+        })();
+      </script>
     </div>
   </section>
 
