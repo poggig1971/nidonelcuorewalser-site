@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Registrazione Ospiti – Nido nel Cuore Walser</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pino: #2F4A3C;        /* verde pino scuro */
+    --pino-scuro: #22382D;
+    --larice: #9C6B2F;      /* legno di larice */
+    --pietra: #F4F1E9;      /* fondo pietra chiara */
+    --carta: #FFFFFF;
+    --testo: #2B2B26;
+    --linea: #D8D2C4;
+    --errore: #A33B2E;
+    --ok: #2F6B45;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Source Sans 3', Arial, sans-serif;
+    background: var(--pietra);
+    color: var(--testo);
+    line-height: 1.55;
+    padding: 0 16px 64px;
+  }
+  header {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 48px 0 24px;
+    text-align: center;
+  }
+  header .marchio {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: clamp(1.7rem, 4vw, 2.4rem);
+    font-weight: 600;
+    color: var(--pino);
+    letter-spacing: 0.01em;
+  }
+  header .marchio span { color: var(--larice); }
+  header .sottotitolo {
+    margin-top: 8px;
+    font-size: 0.95rem;
+    color: #5C5A50;
+  }
+  /* doppia riga stile incastro ligneo walser */
+  .giunto {
+    max-width: 720px; margin: 20px auto 0;
+    border-top: 3px solid var(--pino);
+    position: relative; height: 7px;
+  }
+  .giunto::after {
+    content: ''; position: absolute; left: 0; right: 0; top: 4px;
+    border-top: 1px solid var(--larice);
+  }
+  main {
+    max-width: 720px;
+    margin: 28px auto 0;
+    background: var(--carta);
+    border: 1px solid var(--linea);
+    border-radius: 6px;
+    padding: clamp(20px, 4vw, 40px);
+    box-shadow: 0 2px 10px rgba(47, 74, 60, 0.08);
+  }
+  .avviso {
+    font-size: 0.9rem;
+    background: var(--pietra);
+    border-left: 3px solid var(--larice);
+    padding: 12px 14px;
+    margin-bottom: 28px;
+    color: #4A483F;
+  }
+  fieldset {
+    border: none;
+    margin-bottom: 34px;
+  }
+  legend {
+    font-family: 'Fraunces', Georgia, serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--pino);
+    padding-bottom: 4px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--linea);
+    width: 100%;
+  }
+  .griglia {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 20px;
+  }
+  .campo-intero { grid-column: 1 / -1; }
+  label {
+    display: block;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    color: var(--pino-scuro);
+  }
+  label .obbl { color: var(--errore); }
+  label .facolt { font-weight: 400; color: #8A8878; font-size: 0.8rem; }
+  input[type="text"], input[type="date"], input[type="number"], select, textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--linea);
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 1rem;
+    background: #FDFCF9;
+    color: var(--testo);
+  }
+  input:focus, select:focus, textarea:focus {
+    outline: 2px solid var(--larice);
+    outline-offset: 1px;
+    border-color: var(--larice);
+  }
+  input.maiusc { text-transform: uppercase; }
+  textarea { min-height: 80px; resize: vertical; }
+  .radio-gruppo { display: flex; gap: 24px; padding-top: 6px; }
+  .radio-gruppo label { font-weight: 400; display: flex; align-items: center; gap: 6px; }
+  .consenso {
+    display: flex; gap: 10px; align-items: flex-start;
+    background: var(--pietra);
+    border: 1px solid var(--linea);
+    border-radius: 4px;
+    padding: 14px;
+    font-size: 0.9rem;
+  }
+  .consenso input { margin-top: 3px; width: 18px; height: 18px; accent-color: var(--pino); }
+  button[type="submit"] {
+    display: block;
+    width: 100%;
+    margin-top: 8px;
+    padding: 15px;
+    background: var(--pino);
+    color: #FFF;
+    border: none;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  button[type="submit"]:hover:not(:disabled) { background: var(--pino-scuro); }
+  button[type="submit"]:disabled { background: #9AA79F; cursor: wait; }
+  .esito {
+    display: none;
+    margin-top: 18px;
+    padding: 14px 16px;
+    border-radius: 4px;
+    font-weight: 600;
+  }
+  .esito.ok { display: block; background: #EAF3EC; color: var(--ok); border: 1px solid var(--ok); }
+  .esito.errore { display: block; background: #F8ECEA; color: var(--errore); border: 1px solid var(--errore); }
+  /* honeypot invisibile */
+  .hp { position: absolute; left: -9999px; opacity: 0; height: 0; overflow: hidden; }
+  footer {
+    max-width: 720px; margin: 26px auto 0;
+    text-align: center; font-size: 0.85rem; color: #7A776A;
+  }
+  footer a { color: var(--pino); }
+  @media (max-width: 560px) {
+    .griglia { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="marchio">Nido nel <span>♥</span> Cuore Walser</div>
+  <p class="sottotitolo">Registrazione ospiti · Gressoney-Saint-Jean</p>
+</header>
+<div class="giunto" aria-hidden="true"></div>
+
+<main>
+  <p class="avviso">
+    I dati richiesti sono necessari per gli adempimenti di legge: comunicazione alla
+    Questura (Alloggiati Web), contratto di locazione breve e accesso alla Zona a
+    Traffico Limitato. Si prega di compilare i campi in <strong>STAMPATELLO</strong>.
+    I campi contrassegnati con <span style="color:#A33B2E">*</span> sono obbligatori.
+  </p>
+
+  <form id="formRegistrazione" novalidate>
+
+    <!-- Honeypot antispam: non rimuovere, non compilare -->
+    <div class="hp" aria-hidden="true">
+      <label for="website">Sito web</label>
+      <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+    </div>
+
+    <fieldset>
+      <legend>1 · Dati del soggiorno</legend>
+      <div class="griglia">
+        <div>
+          <label for="dataArrivo">Data di arrivo <span class="obbl">*</span></label>
+          <input type="date" id="dataArrivo" name="dataArrivo" required>
+        </div>
+        <div>
+          <label for="notti">Notti di permanenza (max 28) <span class="obbl">*</span></label>
+          <input type="number" id="notti" name="notti" min="1" max="28" required>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>2 · Dati anagrafici</legend>
+      <div class="griglia">
+        <div>
+          <label for="cognome">Cognome <span class="obbl">*</span></label>
+          <input type="text" id="cognome" name="cognome" class="maiusc" autocomplete="family-name" required>
+        </div>
+        <div>
+          <label for="nome">Nome <span class="obbl">*</span></label>
+          <input type="text" id="nome" name="nome" class="maiusc" autocomplete="given-name" required>
+        </div>
+        <div>
+          <label for="dataNascita">Data di nascita <span class="obbl">*</span></label>
+          <input type="date" id="dataNascita" name="dataNascita" required>
+        </div>
+        <div>
+          <label for="luogoNascita">Luogo di nascita <span class="obbl">*</span></label>
+          <input type="text" id="luogoNascita" name="luogoNascita" class="maiusc" required>
+        </div>
+        <div class="campo-intero">
+          <label>Sesso <span class="obbl">*</span></label>
+          <div class="radio-gruppo">
+            <label><input type="radio" name="sesso" value="M" required> M</label>
+            <label><input type="radio" name="sesso" value="F"> F</label>
+          </div>
+        </div>
+        <div class="campo-intero">
+          <label for="codiceFiscale">Codice fiscale <span class="facolt">(solo per il contratto)</span></label>
+          <input type="text" id="codiceFiscale" name="codiceFiscale" class="maiusc" maxlength="16">
+        </div>
+        <div>
+          <label for="cittaResidenza">Città di residenza <span class="obbl">*</span></label>
+          <input type="text" id="cittaResidenza" name="cittaResidenza" class="maiusc" required>
+        </div>
+        <div>
+          <label for="provinciaResidenza">Provincia di residenza <span class="obbl">*</span></label>
+          <input type="text" id="provinciaResidenza" name="provinciaResidenza" class="maiusc" required>
+        </div>
+        <div class="campo-intero">
+          <label for="statoProvenienza">Stato di provenienza <span class="obbl">*</span></label>
+          <input type="text" id="statoProvenienza" name="statoProvenienza" class="maiusc" required>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>3 · Documento di identità</legend>
+      <div class="griglia">
+        <div class="campo-intero">
+          <label for="tipoDocumento">Tipo di documento <span class="obbl">*</span></label>
+          <select id="tipoDocumento" name="tipoDocumento" required>
+            <option value="">— Selezionare —</option>
+            <option>Carta d'identità elettronica</option>
+            <option>Carta d'identità</option>
+            <option>Passaporto</option>
+            <option>Patente di guida</option>
+          </select>
+        </div>
+        <div>
+          <label for="numeroDocumento">Numero del documento <span class="obbl">*</span></label>
+          <input type="text" id="numeroDocumento" name="numeroDocumento" class="maiusc" required>
+        </div>
+        <div>
+          <label for="luogoRilascio">Luogo di rilascio <span class="obbl">*</span></label>
+          <input type="text" id="luogoRilascio" name="luogoRilascio" class="maiusc" required>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>4 · Veicolo e note</legend>
+      <div class="griglia">
+        <div class="campo-intero">
+          <label for="veicoloTarga">Modello e targa del veicolo <span class="facolt">(per accesso ZTL)</span></label>
+          <input type="text" id="veicoloTarga" name="veicoloTarga" class="maiusc">
+        </div>
+        <div class="campo-intero">
+          <label for="note">Note aggiuntive</label>
+          <textarea id="note" name="note"></textarea>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>5 · Conferma e trattamento dati</legend>
+      <div class="consenso">
+        <input type="checkbox" id="gdpr" name="gdpr" required>
+        <label for="gdpr" style="font-weight:400">
+          Dichiaro di aver fornito dati veritieri e autorizzo il trattamento ai sensi del
+          Reg. UE 679/2016 (GDPR) esclusivamente per finalità di registrazione ospiti e
+          comunicazioni obbligatorie alla Questura. <span class="obbl">*</span>
+        </label>
+      </div>
+    </fieldset>
+
+    <button type="submit" id="btnInvia">Invia la registrazione</button>
+    <div id="esito" class="esito" role="alert"></div>
+  </form>
+</main>
+
+<footer>
+  Nido nel Cuore Walser · Gressoney-Saint-Jean ·
+  <a href="mailto:info@nidonelcuorewalser.it">info@nidonelcuorewalser.it</a>
+</footer>
+
+<script>
+/* =========================================================
+   CONFIGURAZIONE: incollare qui l'URL della web app
+   Apps Script pubblicata (termina con /exec)
+   ========================================================= */
+const SCRIPT_URL = 'INCOLLARE_QUI_URL_WEB_APP/exec';
+
+const form = document.getElementById('formRegistrazione');
+const btn = document.getElementById('btnInvia');
+const esito = document.getElementById('esito');
+
+form.addEventListener('submit', async function (ev) {
+  ev.preventDefault();
+  esito.className = 'esito';
+  esito.textContent = '';
+
+  // Validazione nativa del browser
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    return;
+  }
+
+  const dati = {
+    website: form.website.value, // honeypot
+    dataArrivo: formattaData(form.dataArrivo.value),
+    notti: form.notti.value,
+    cognome: form.cognome.value,
+    nome: form.nome.value,
+    dataNascita: formattaData(form.dataNascita.value),
+    luogoNascita: form.luogoNascita.value,
+    sesso: form.querySelector('input[name="sesso"]:checked')?.value || '',
+    codiceFiscale: form.codiceFiscale.value,
+    cittaResidenza: form.cittaResidenza.value,
+    provinciaResidenza: form.provinciaResidenza.value,
+    statoProvenienza: form.statoProvenienza.value,
+    tipoDocumento: form.tipoDocumento.value,
+    numeroDocumento: form.numeroDocumento.value,
+    luogoRilascio: form.luogoRilascio.value,
+    veicoloTarga: form.veicoloTarga.value,
+    note: form.note.value,
+    gdpr: form.gdpr.checked
+  };
+
+  btn.disabled = true;
+  btn.textContent = 'Invio in corso…';
+
+  try {
+    // text/plain evita la preflight CORS verso Apps Script
+    const risposta = await fetch(SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(dati)
+    });
+    const json = await risposta.json();
+
+    if (json.ok) {
+      esito.className = 'esito ok';
+      esito.textContent = '✓ Registrazione inviata correttamente. Grazie! Vi aspettiamo a Gressoney.';
+      form.reset();
+    } else {
+      esito.className = 'esito errore';
+      esito.textContent = 'Invio non riuscito: ' + (json.message || 'errore sconosciuto.') +
+        ' In alternativa scrivere a info@nidonelcuorewalser.it';
+    }
+  } catch (err) {
+    esito.className = 'esito errore';
+    esito.textContent = 'Errore di connessione. Riprovare oppure scrivere a info@nidonelcuorewalser.it';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Invia la registrazione';
+    esito.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+});
+
+// da AAAA-MM-GG (input date) a GG/MM/AAAA
+function formattaData(iso) {
+  if (!iso) return '';
+  const p = iso.split('-');
+  return p.length === 3 ? p[2] + '/' + p[1] + '/' + p[0] : iso;
+}
+</script>
+</body>
+</html>
