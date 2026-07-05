@@ -4,6 +4,49 @@ body {
     scroll-behavior: smooth;
 }
 
+/* Titoli in stile alpino elegante */
+h1, h2, h3 {
+    font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    letter-spacing: 0.01em;
+}
+
+/* Effetto hover sulle card */
+.card-hover {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* Pulsante WhatsApp flottante */
+.whatsapp-float {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 1100;
+    background: #25D366;
+    width: 60px;
+    height: 60px;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.1);
+}
+
+.whatsapp-float svg {
+    width: 32px;
+    height: 32px;
+    fill: #ffffff;
+}
+
 /* Custom animations */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
