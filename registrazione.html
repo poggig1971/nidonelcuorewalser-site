@@ -358,6 +358,12 @@ form.addEventListener('submit', async function (ev) {
     return;
   }
 
+  // Ente e scadenza vengono inoltrati sia come campi propri sia dentro le note,
+  // in formato riconoscibile dal gestionale (che li estrae per la scheda ospite).
+  const enteScad = 'Ente rilascio: ' + (form.enteRilascio.value || '-') +
+    '; Scadenza doc: ' + (formattaData(form.scadenzaDocumento.value) || '-');
+  const noteComplete = form.note.value ? form.note.value + ' | ' + enteScad : enteScad;
+
   const dati = {
     website: form.website.value, // honeypot
     dataArrivo: formattaData(form.dataArrivo.value),
@@ -377,7 +383,7 @@ form.addEventListener('submit', async function (ev) {
     enteRilascio: form.enteRilascio.value,
     scadenzaDocumento: formattaData(form.scadenzaDocumento.value),
     veicoloTarga: form.veicoloTarga.value,
-    note: form.note.value,
+    note: noteComplete,
     gdpr: form.gdpr.checked
   };
 
