@@ -119,6 +119,15 @@
     border-color: var(--larice);
   }
   input.maiusc { text-transform: uppercase; }
+  input.data { letter-spacing: 0.06em; }
+  .eco { font-size: 0.85rem; color: var(--pino); font-weight: 600; margin-top: 4px; min-height: 1.1em; }
+  .eco.errore { color: var(--errore); }
+  .riepilogo-notti {
+    background: var(--pietra); border: 1px solid var(--linea); border-radius: 4px;
+    padding: 12px 14px; font-size: 0.95rem; color: var(--testo);
+  }
+  .riepilogo-notti strong { font-size: 1.15rem; color: var(--pino-scuro); }
+  .riepilogo-notti.errore { background: #F8ECEA; border-color: var(--errore); color: var(--errore); }
   textarea { min-height: 80px; resize: vertical; }
   .radio-gruppo { display: flex; gap: 24px; padding-top: 6px; }
   .radio-gruppo label { font-weight: 400; display: flex; align-items: center; gap: 6px; }
@@ -202,11 +211,21 @@
       <div class="griglia">
         <div>
           <label for="dataArrivo">Data di arrivo <span class="obbl">*</span></label>
-          <input type="date" id="dataArrivo" name="dataArrivo" required>
+          <input type="text" id="dataArrivo" name="dataArrivo" class="data" inputmode="numeric"
+                 maxlength="10" placeholder="gg/mm/aaaa" autocomplete="off" required>
+          <div class="eco" id="ecoArrivo"></div>
         </div>
         <div>
-          <label for="notti">Notti di permanenza (max 30) <span class="obbl">*</span></label>
-          <input type="number" id="notti" name="notti" min="1" max="30" required>
+          <label for="dataPartenza">Data di partenza <span class="obbl">*</span></label>
+          <input type="text" id="dataPartenza" name="dataPartenza" class="data" inputmode="numeric"
+                 maxlength="10" placeholder="gg/mm/aaaa" autocomplete="off" required>
+          <div class="eco" id="ecoPartenza"></div>
+        </div>
+        <div class="campo-intero">
+          <div class="riepilogo-notti" id="riepilogoNotti">
+            Indicare arrivo e partenza: il numero di notti viene calcolato in automatico (massimo 30).
+          </div>
+          <input type="hidden" id="notti" name="notti">
         </div>
       </div>
     </fieldset>
@@ -224,7 +243,9 @@
         </div>
         <div>
           <label for="dataNascita">Data di nascita <span class="obbl">*</span></label>
-          <input type="date" id="dataNascita" name="dataNascita" required>
+          <input type="text" id="dataNascita" name="dataNascita" class="data" inputmode="numeric"
+                 maxlength="10" placeholder="gg/mm/aaaa" autocomplete="bday" required>
+          <div class="eco" id="ecoNascita"></div>
         </div>
         <div>
           <label for="luogoNascita">Luogo di nascita <span class="obbl">*</span></label>
@@ -284,7 +305,9 @@
         </div>
         <div>
           <label for="scadenzaDocumento">Data di scadenza del documento <span class="obbl">*</span></label>
-          <input type="date" id="scadenzaDocumento" name="scadenzaDocumento" required>
+          <input type="text" id="scadenzaDocumento" name="scadenzaDocumento" class="data" inputmode="numeric"
+                 maxlength="10" placeholder="gg/mm/aaaa" autocomplete="off" required>
+          <div class="eco" id="ecoScadenza"></div>
         </div>
       </div>
     </fieldset>
@@ -336,6 +359,84 @@ const form = document.getElementById('formRegistrazione');
 const btn = document.getElementById('btnInvia');
 const esito = document.getElementById('esito');
 
+/* ---------- DATE SCRITTE A MANO (gg/mm/aaaa), senza calendario ---------- */
+const GIORNI = ['domenica','lunedì','martedì','mercoledì','giovedì','venerdì','sabato'];
+const MESI = ['gennaio','febbraio','marzo','aprile','maggio','giugno',
+              'luglio','agosto','settembre','ottobre','novembre','dicembre'];
+const NOTTI_MAX = 30;
+
+// Inserisce da sola le barre mentre si digita: 03082026 -> 03/08/2026
+function formattaMentreScrive(el) {
+  let v = el.value.replace(/[^\d]/g, '').slice(0, 8);
+  if (v.length > 4) v = v.slice(0, 2) + '/' + v.slice(2, 4) + '/' + v.slice(4);
+  else if (v.length > 2) v = v.slice(0, 2) + '/' + v.slice(2);
+  el.value = v;
+}
+
+// "03/08/2026" -> oggetto Date, oppure null se la data non esiste davvero
+function leggiData(testo) {
+  const m = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(String(testo).trim());
+  if (!m) return null;
+  const g = +m[1], me = +m[2], a = +m[3];
+  const d = new Date(a, me - 1, g, 12, 0, 0);
+  if (d.getDate() !== g || d.getMonth() !== me - 1 || d.getFullYear() !== a) return null;
+  return d;
+}
+
+function perEsteso(d) {
+  return GIORNI[d.getDay()] + ' ' + d.getDate() + ' ' + MESI[d.getMonth()] + ' ' + d.getFullYear();
+}
+
+// Scrive sotto al campo il giorno della settimana, o l'avviso di data non valida
+function mostraEco(idCampo, idEco) {
+  const el = document.getElementById(idCampo);
+  const eco = document.getElementById(idEco);
+  if (!el || !eco) return null;
+  if (!el.value.trim()) { eco.textContent = ''; eco.className = 'eco'; return null; }
+  const d = leggiData(el.value);
+  if (!d) { eco.textContent = 'Data non valida: scrivere giorno/mese/anno, es. 03/08/2026'; eco.className = 'eco errore'; return null; }
+  eco.textContent = perEsteso(d); eco.className = 'eco';
+  return d;
+}
+
+// Calcola le notti dalla differenza fra partenza e arrivo
+function calcolaNotti() {
+  const dIn = mostraEco('dataArrivo', 'ecoArrivo');
+  const dOut = mostraEco('dataPartenza', 'ecoPartenza');
+  const box = document.getElementById('riepilogoNotti');
+  const campoNotti = document.getElementById('notti');
+  campoNotti.value = '';
+  box.className = 'riepilogo-notti';
+  if (!dIn || !dOut) {
+    box.textContent = 'Indicare arrivo e partenza: il numero di notti viene calcolato in automatico (massimo 30).';
+    return;
+  }
+  const notti = Math.round((dOut - dIn) / 86400000);
+  if (notti <= 0) {
+    box.className = 'riepilogo-notti errore';
+    box.textContent = 'La data di partenza deve essere successiva a quella di arrivo.';
+    return;
+  }
+  if (notti > NOTTI_MAX) {
+    box.className = 'riepilogo-notti errore';
+    box.textContent = 'Il soggiorno indicato è di ' + notti + ' notti: questo modulo copre al massimo ' +
+      NOTTI_MAX + ' notti. Per periodi più lunghi contattare il numero +39 335 832 1878.';
+    return;
+  }
+  campoNotti.value = notti;
+  box.innerHTML = 'Arrivo ' + perEsteso(dIn) + ' &middot; partenza ' + perEsteso(dOut) +
+    '<br>Notti di permanenza: <strong>' + notti + '</strong>';
+}
+
+document.querySelectorAll('input.data').forEach(function (el) {
+  el.addEventListener('input', function () {
+    formattaMentreScrive(el);
+    if (el.id === 'dataArrivo' || el.id === 'dataPartenza') calcolaNotti();
+    else if (el.id === 'dataNascita') mostraEco('dataNascita', 'ecoNascita');
+    else if (el.id === 'scadenzaDocumento') mostraEco('scadenzaDocumento', 'ecoScadenza');
+  });
+});
+
 form.addEventListener('submit', async function (ev) {
   ev.preventDefault();
   esito.className = 'esito';
@@ -347,30 +448,50 @@ form.addEventListener('submit', async function (ev) {
     return;
   }
 
-  // Il documento deve essere valido alla data di arrivo
-  if (form.scadenzaDocumento.value && form.dataArrivo.value &&
-      form.scadenzaDocumento.value < form.dataArrivo.value) {
+  function fermati(messaggio, campo) {
     esito.className = 'esito errore';
-    esito.textContent = 'Il documento indicato risulta scaduto alla data di arrivo. ' +
-      'Verificare la data di scadenza oppure indicare un documento in corso di validità.';
-    form.scadenzaDocumento.focus();
+    esito.textContent = messaggio;
+    if (campo) campo.focus();
     esito.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  // Le tre date devono essere scritte per intero e devono esistere davvero
+  const dArrivo = leggiData(form.dataArrivo.value);
+  const dPartenza = leggiData(form.dataPartenza.value);
+  const dNascita = leggiData(form.dataNascita.value);
+  const dScadenza = leggiData(form.scadenzaDocumento.value);
+  if (!dArrivo) { fermati('Controllare la data di arrivo: va scritta come giorno/mese/anno, es. 03/08/2026.', form.dataArrivo); return; }
+  if (!dPartenza) { fermati('Controllare la data di partenza: va scritta come giorno/mese/anno, es. 10/08/2026.', form.dataPartenza); return; }
+  if (!dNascita) { fermati('Controllare la data di nascita: va scritta come giorno/mese/anno.', form.dataNascita); return; }
+  if (!dScadenza) { fermati('Controllare la data di scadenza del documento: va scritta come giorno/mese/anno.', form.scadenzaDocumento); return; }
+
+  // Notti calcolate dalle due date
+  calcolaNotti();
+  const notti = Number(form.notti.value);
+  if (!notti || notti < 1) { fermati('La data di partenza deve essere successiva a quella di arrivo.', form.dataPartenza); return; }
+  if (notti > NOTTI_MAX) { fermati('Questo modulo copre soggiorni fino a ' + NOTTI_MAX + ' notti. Per periodi piu lunghi contattare il +39 335 832 1878.', form.dataPartenza); return; }
+
+  // Il documento deve essere valido alla data di arrivo
+  if (dScadenza < dArrivo) {
+    fermati('Il documento indicato risulta scaduto alla data di arrivo. ' +
+      'Verificare la data di scadenza oppure indicare un documento in corso di validità.', form.scadenzaDocumento);
     return;
   }
 
   // Ente e scadenza vengono inoltrati sia come campi propri sia dentro le note,
   // in formato riconoscibile dal gestionale (che li estrae per la scheda ospite).
   const enteScad = 'Ente rilascio: ' + (form.enteRilascio.value || '-') +
-    '; Scadenza doc: ' + (formattaData(form.scadenzaDocumento.value) || '-');
+    '; Scadenza doc: ' + (form.scadenzaDocumento.value || '-');
   const noteComplete = form.note.value ? form.note.value + ' | ' + enteScad : enteScad;
 
   const dati = {
     website: form.website.value, // honeypot
-    dataArrivo: formattaData(form.dataArrivo.value),
+    dataArrivo: form.dataArrivo.value,
+    dataPartenza: form.dataPartenza.value,
     notti: form.notti.value,
     cognome: form.cognome.value,
     nome: form.nome.value,
-    dataNascita: formattaData(form.dataNascita.value),
+    dataNascita: form.dataNascita.value,
     luogoNascita: form.luogoNascita.value,
     sesso: form.querySelector('input[name="sesso"]:checked')?.value || '',
     codiceFiscale: form.codiceFiscale.value,
@@ -381,7 +502,7 @@ form.addEventListener('submit', async function (ev) {
     numeroDocumento: form.numeroDocumento.value,
     luogoRilascio: form.luogoRilascio.value,
     enteRilascio: form.enteRilascio.value,
-    scadenzaDocumento: formattaData(form.scadenzaDocumento.value),
+    scadenzaDocumento: form.scadenzaDocumento.value,
     veicoloTarga: form.veicoloTarga.value,
     note: noteComplete,
     gdpr: form.gdpr.checked
@@ -403,6 +524,11 @@ form.addEventListener('submit', async function (ev) {
       esito.className = 'esito ok';
       esito.textContent = '✓ Registrazione inviata correttamente. Grazie! Vi aspettiamo a Gressoney.';
       form.reset();
+      ['ecoArrivo', 'ecoPartenza', 'ecoNascita', 'ecoScadenza'].forEach(function (x) {
+        const e = document.getElementById(x);
+        if (e) { e.textContent = ''; e.className = 'eco'; }
+      });
+      calcolaNotti();
     } else {
       esito.className = 'esito errore';
       esito.textContent = 'Invio non riuscito: ' + (json.message || 'errore sconosciuto.') +
@@ -418,12 +544,7 @@ form.addEventListener('submit', async function (ev) {
   }
 });
 
-// da AAAA-MM-GG (input date) a GG/MM/AAAA
-function formattaData(iso) {
-  if (!iso) return '';
-  const p = iso.split('-');
-  return p.length === 3 ? p[2] + '/' + p[1] + '/' + p[0] : iso;
-}
+// Le date sono gia' scritte dall'ospite in formato gg/mm/aaaa (vedi leggiData).
 </script>
 </body>
 </html>
