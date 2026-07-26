@@ -277,6 +277,15 @@
           <label for="luogoRilascio">Luogo di rilascio <span class="obbl">*</span></label>
           <input type="text" id="luogoRilascio" name="luogoRilascio" class="maiusc" required>
         </div>
+        <div>
+          <label for="enteRilascio">Ente che ha rilasciato il documento <span class="obbl">*</span></label>
+          <input type="text" id="enteRilascio" name="enteRilascio" class="maiusc"
+                 placeholder="es. COMUNE DI CHIAVARI, QUESTURA DI GENOVA" required>
+        </div>
+        <div>
+          <label for="scadenzaDocumento">Data di scadenza del documento <span class="obbl">*</span></label>
+          <input type="date" id="scadenzaDocumento" name="scadenzaDocumento" required>
+        </div>
       </div>
     </fieldset>
 
@@ -338,6 +347,17 @@ form.addEventListener('submit', async function (ev) {
     return;
   }
 
+  // Il documento deve essere valido alla data di arrivo
+  if (form.scadenzaDocumento.value && form.dataArrivo.value &&
+      form.scadenzaDocumento.value < form.dataArrivo.value) {
+    esito.className = 'esito errore';
+    esito.textContent = 'Il documento indicato risulta scaduto alla data di arrivo. ' +
+      'Verificare la data di scadenza oppure indicare un documento in corso di validità.';
+    form.scadenzaDocumento.focus();
+    esito.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    return;
+  }
+
   const dati = {
     website: form.website.value, // honeypot
     dataArrivo: formattaData(form.dataArrivo.value),
@@ -354,6 +374,8 @@ form.addEventListener('submit', async function (ev) {
     tipoDocumento: form.tipoDocumento.value,
     numeroDocumento: form.numeroDocumento.value,
     luogoRilascio: form.luogoRilascio.value,
+    enteRilascio: form.enteRilascio.value,
+    scadenzaDocumento: formattaData(form.scadenzaDocumento.value),
     veicoloTarga: form.veicoloTarga.value,
     note: form.note.value,
     gdpr: form.gdpr.checked
